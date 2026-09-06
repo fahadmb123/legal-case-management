@@ -1,13 +1,15 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register";
-import Layout from "../components/Layout/Layout";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import Clients from "../pages/Clients/Clients";
-import ClientDetails from "../pages/Clients/ClientDetails";
-import CaseDetails from "../pages/Cases/CaseDetails";
-import Hearings from "../pages/Hearings/Hearings";
-import Settings from "../pages/Settings/Settings";
+import {lazy} from "react"
+const Login = lazy(() => import("../pages/Login/Login"));
+const Register = lazy(() => import("../pages/Register/Register"));
+const Layout = lazy(() => import("../components/Layout/Layout"));
+const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const Clients = lazy(() => import("../pages/Clients/Clients"));
+const ClientDetails = lazy(() => import("../pages/Clients/ClientDetails"));
+const CaseDetails = lazy(() => import("../pages/Cases/CaseDetails"));
+const Hearings = lazy(() => import("../pages/Hearings/Hearings"));
+const Settings = lazy(() => import("../pages/Settings/Settings"));
+
 
 function AppRoutes() {
     return (
