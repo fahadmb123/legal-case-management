@@ -1329,77 +1329,47 @@ p {
   }
 }
 
-/* Tablet (<=1024px) */
+/* Tablet & Mobile Breakpoints (<=1024px) */
 @media (max-width: 1024px) {
-  :root {
-    --sidebar-width: 220px;
-  }
-  
-  .app-sidebar {
-    width: 220px;
+  .app-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100vw;
   }
 
-  .app-main {
-    margin-left: 220px;
-    width: calc(100% - 220px);
-  }
-  
   .client-details-grid,
   .meta-data-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-
-/* Mobile Devices (<=768px) */
-@media (max-width: 768px) {
-  .app-main {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .app-sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: calc(-1 * min(290px, 85vw) - 10px);
-    width: min(290px, 85vw);
-    height: 100vh;
-    height: 100dvh;
-    max-height: 100dvh;
-    box-shadow: var(--shadow-xl);
-    transition: left var(--transition-smooth);
-    z-index: var(--z-modal);
-  }
-
-  /* When mobile nav checkbox is checked, slide sidebar in */
-  :root:has(#mobile-nav-toggle:checked) .app-sidebar {
-    left: 0;
-  }
-
-  /* Overlay backdrop for mobile drawer */
-  .mobile-drawer-backdrop {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    background-color: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(2px);
-    z-index: calc(var(--z-modal) - 1);
-  }
-
-  :root:has(#mobile-nav-toggle:checked) .mobile-drawer-backdrop {
-    display: block;
-  }
 
   .mobile-menu-trigger {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
   }
+}
 
+/* Mobile Devices & Drawers (<=1024px) */
+.mobile-drawer-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: calc(var(--z-modal, 510) - 1);
+}
+
+.mobile-drawer-backdrop.visible,
+:root:has(#mobile-nav-toggle:checked) .mobile-drawer-backdrop,
+.mobile-nav-open .mobile-drawer-backdrop {
+  display: block;
+}
+
+@media (max-width: 768px) {
   .app-topbar {
     padding: 0 var(--space-3);
   }

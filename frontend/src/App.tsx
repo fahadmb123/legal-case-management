@@ -1,12 +1,15 @@
 import './App.css'
-import Dashboard from './pages/dashboard/Dashboard'
-import Login from './pages/Login/Login'
+import AppRoutes from './routes/AppRoutes'
+import { BrowserRouter } from 'react-router-dom'
+
+
 
 function App() {
- 
   return (
     <>
-      <Dashboard/>
+      <BrowserRouter>
+        <AppRoutes/>
+      </BrowserRouter>
     </>
   )
 }

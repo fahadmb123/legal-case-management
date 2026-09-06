@@ -2,31 +2,7 @@ import "./Dashboard.css";
 
 function Dashboard() {
   return (
-    <>
-      {/* Pure CSS Theme Toggle Support */}
-      <input type="checkbox" id="theme-toggle" className="theme-switch-checkbox" aria-label="Toggle dark mode" />
-      {/* Pure CSS Mobile Navigation Toggle */}
-      <input type="checkbox" id="mobile-nav-toggle" className="mobile-nav-checkbox" aria-label="Toggle mobile menu" />
-      <label htmlFor="mobile-nav-toggle" className="mobile-drawer-backdrop"></label>
-
-      <div className="app-shell">
-        
-        {/* ====================================================================
-             SHARED APPLICATION SIDEBAR
-             ==================================================================== */}
-        {/** The Side bar was here*/}
-
-        {/* ====================================================================
-             MAIN CONTENT WRAPPER
-             ==================================================================== */}
-        <div className="app-main">
-          
-          {/* Shared Top Navigation Bar */}
-
-          {/* Navbar was here */}
-          
-          {/* Dashboard Main Page Body */}
-          <main className="app-content">
+    <div className="dashboard-view">
             
             {/* Header & Quick Intakes */}
             <div className="page-header">
@@ -420,11 +396,7 @@ function Dashboard() {
 
             </div>
 
-          </main>
-        </div>
-
-      </div>
-    </>
+    </div>
   );
 }
 

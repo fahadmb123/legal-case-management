@@ -1,116 +1,204 @@
-
-
-
 /**
- * Dashboard Specific Styles
+ * Dashboard Specific Styles - Fully Responsive Across All Device Form Factors
  */
+
+.dashboard-view {
+  width: 100%;
+  min-width: 0;
+}
 
 .stats-overview-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-  gap: clamp(var(--space-3), 1.5vw, var(--space-4));
-  margin-bottom: var(--space-6);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(var(--space-3, 0.75rem), 1.5vw, var(--space-4, 1rem));
+  margin-bottom: var(--space-6, 1.5rem);
 }
 
-.dashboard-quick-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
-  padding: clamp(var(--space-3), 1.5vw, var(--space-4));
+.stat-card {
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg, 12px);
+  padding: var(--space-card-padding, 1.25rem);
   box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3, 0.75rem);
+  min-width: 0;
+  transition: transform var(--transition-fast, 150ms ease), box-shadow var(--transition-fast, 150ms ease);
 }
 
-.quick-action-item {
-  display: inline-flex;
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-label {
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.stat-value {
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  margin-bottom: var(--space-2, 0.5rem);
+}
+
+.stat-meta {
+  display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  min-height: 38px;
-  background-color: var(--color-bg-surface-subtle);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  box-sizing: border-box;
+  gap: var(--space-1, 0.25rem);
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
 }
 
-.quick-action-item:hover {
-  background-color: var(--color-primary-subtle);
-  border-color: var(--color-primary-border);
-  color: var(--color-primary);
-}
-
-.quick-action-item svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md, 8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
+.stat-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.stat-icon-blue {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+.stat-icon-green {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.stat-icon-amber {
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+
+.stat-icon-purple {
+  background-color: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+}
+
+/* Split Grid for Recent Clients & Recent Cases */
 .dashboard-sections-split {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(var(--space-4), 2vw, var(--space-6));
-  margin-top: var(--space-6);
+  gap: clamp(var(--space-4, 1rem), 2vw, var(--space-6, 1.5rem));
+  margin-top: var(--space-6, 1.5rem);
 }
 
 /* Priority Hearing Row styling */
 .hearing-urgency-today {
-  border-left: 3px solid var(--color-danger) !important;
+  border-left: 3px solid var(--color-danger, #ef4444) !important;
 }
 
 .hearing-urgency-tomorrow {
-  border-left: 3px solid var(--color-warning) !important;
+  border-left: 3px solid var(--color-warning, #f59e0b) !important;
 }
 
 .court-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-xs, 0.75rem);
   color: var(--color-text-muted);
   flex-wrap: wrap;
 }
 
+/* Table Responsive Handling */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* ==========================================================================
+   Responsive Adaptations Across Devices
+   ========================================================================== */
+
+/* Wide Desktops */
 @media (min-width: 1400px) {
   .stats-overview-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: 1100px) {
+/* Laptops & Tablets Landscape (<=1200px) */
+@media (max-width: 1200px) {
+  .stats-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
   .dashboard-sections-split {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
+/* Tablets Portrait & Large Mobile (<=768px) */
 @media (max-width: 768px) {
   .stats-overview-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .page-header-actions {
+    display: flex;
+    width: 100%;
+    gap: var(--space-2, 0.5rem);
+  }
+
+  .page-header-actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 42px;
   }
 }
 
+/* Compact Smartphones (<=540px) */
 @media (max-width: 540px) {
   .stats-overview-grid {
     grid-template-columns: 1fr;
   }
-  
-  .dashboard-quick-actions {
-    flex-direction: column;
-    align-items: stretch;
+
+  .stat-card {
+    padding: var(--space-3, 0.75rem);
   }
 
-  .quick-action-item {
-    width: 100%;
-    justify-content: center;
-    min-height: var(--touch-target-min);
+  .stat-value {
+    font-size: 1.625rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2, 0.5rem);
   }
 }
