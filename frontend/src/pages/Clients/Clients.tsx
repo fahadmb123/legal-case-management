@@ -614,13 +614,13 @@ function Clients() {
                               {client.avatarText}
                             </div>
                             <div className="client-name-details">
-                              <button
-                                type="button"
+                              <Link
+                                to={`/clients/${client.clientId}`}
                                 className="client-name-btn"
-                                onClick={() => setSelectedClientForView(client)}
+                                title="View Full Client Profile"
                               >
                                 {client.name}
-                              </button>
+                              </Link>
                               <div className="client-submeta">
                                 <span className="client-id-badge">{client.clientId}</span>
                                 <span className="submeta-separator">&bull;</span>

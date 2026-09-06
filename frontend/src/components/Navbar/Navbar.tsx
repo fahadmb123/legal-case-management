@@ -43,6 +43,12 @@ function Navbar({ onToggleMobileNav }: NavbarProps) {
                     <span className="breadcrumbs-separator" aria-hidden="true">/</span>
                     <span className="breadcrumbs-current font-mono" aria-current="page">WP(C) 14022/2023</span>
                   </>
+                ) : location.pathname.startsWith("/clients/") || location.pathname.startsWith("/client-details") ? (
+                  <>
+                    <Link to="/clients" className="breadcrumb-parent">Clients</Link>
+                    <span className="breadcrumbs-separator" aria-hidden="true">/</span>
+                    <span className="breadcrumbs-current" aria-current="page">Vikramaditya Enterprises Ltd.</span>
+                  </>
                 ) : (
                   <span className="breadcrumbs-current" aria-current="page">{getBreadcrumbTitle()}</span>
                 )}

@@ -222,8 +222,8 @@ function CaseDetails() {
         <div className="party-card">
           <div className="party-card-header">
             <span className="party-type-badge badge-info">Petitioner / Plaintiff (Our Client)</span>
-            <Link to="/clients" className="party-client-link">
-              View in Directory &rarr;
+            <Link to="/clients/CLT-2023-089" className="party-client-link">
+              View Client Profile &rarr;
             </Link>
           </div>
           <h3 className="party-title">Vikramaditya Enterprises Ltd.</h3>
