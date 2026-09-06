@@ -13,7 +13,7 @@ function Navbar({ onToggleMobileNav }: NavbarProps) {
         const path = location.pathname;
         if (path.startsWith("/clients")) return "Client Directory";
         if (path.startsWith("/cases")) return "Legal Cases";
-        if (path.startsWith("/hearings")) return "Upcoming Hearings";
+        if (path.startsWith("/hearings")) return "Court Hearings Docket";
         if (path.startsWith("/settings")) return "Chamber Settings";
         return "Practice Dashboard";
     };

@@ -4,6 +4,7 @@ import Layout from "../components/Layout/Layout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Clients from "../pages/Clients/Clients";
 import CaseDetails from "../pages/Cases/CaseDetails";
+import Hearings from "../pages/Hearings/Hearings";
 
 function AppRoutes() {
     return (
@@ -15,6 +16,7 @@ function AppRoutes() {
                 <Route path="clients" element={<Clients />} />
                 <Route path="cases" element={<CaseDetails />} />
                 <Route path="cases/:caseId" element={<CaseDetails />} />
+                <Route path="hearings" element={<Hearings />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
         </Routes>
