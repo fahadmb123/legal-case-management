@@ -19,6 +19,7 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -28,6 +29,8 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-bg-app);
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color var(--transition-base), color var(--transition-base);
@@ -103,23 +106,31 @@ p {
    Application Shell Layout
    ========================================================================== */
 .app-shell {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
-/* Sidebar */
+/* Sidebar - Fixed to Screen Height */
 .app-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   background-color: var(--color-sidebar-bg);
   border-right: 1px solid var(--color-sidebar-border);
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  position: sticky;
-  top: 0;
   z-index: var(--z-sticky);
   user-select: none;
+  overflow: hidden;
 }
 
 .sidebar-brand {
@@ -288,17 +299,22 @@ p {
    Main Content Area & Topbar
    ========================================================================== */
 .app-main {
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--color-bg-app);
+  overflow-x: hidden;
 }
 
 .app-topbar {
   height: var(--topbar-height);
   background-color: var(--color-bg-surface);
   border-bottom: 1px solid var(--color-border-default);
-  padding: 0 var(--space-8);
+  padding: 0 clamp(var(--space-3), 2vw, var(--space-8));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -306,12 +322,14 @@ p {
   top: 0;
   z-index: var(--z-sticky);
   transition: background-color var(--transition-base), border-color var(--transition-base);
+  min-width: 0;
 }
 
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
+  min-width: 0;
 }
 
 .mobile-menu-trigger {
@@ -322,6 +340,10 @@ p {
   cursor: pointer;
   padding: var(--space-2);
   border-radius: var(--radius-sm);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  align-items: center;
+  justify-content: center;
 }
 
 .breadcrumbs {
@@ -330,6 +352,10 @@ p {
   gap: var(--space-2);
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .breadcrumbs a {
@@ -473,10 +499,16 @@ p {
 
 /* Content Container */
 .app-content {
-  padding: var(--space-8);
+  padding: var(--space-content-padding);
   max-width: var(--container-max-width);
   width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.app-content-narrow {
+  max-width: var(--container-readable-width);
 }
 
 /* Page Header Block */
@@ -515,6 +547,7 @@ p {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   padding: 0.625rem 1.125rem;
+  min-height: 38px;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   cursor: pointer;
@@ -760,6 +793,8 @@ p {
   box-shadow: var(--shadow-sm);
   overflow: hidden;
   transition: all var(--transition-base);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .card:hover {
@@ -767,13 +802,14 @@ p {
 }
 
 .card-header {
-  padding: var(--space-5) var(--space-6);
+  padding: clamp(var(--space-4), 1.5vw, var(--space-5)) clamp(var(--space-4), 2vw, var(--space-6));
   border-bottom: 1px solid var(--color-border-default);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
   background-color: var(--color-bg-surface);
+  flex-wrap: wrap;
 }
 
 .card-title {
@@ -783,24 +819,28 @@ p {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  word-break: break-word;
 }
 
 .card-body {
-  padding: var(--space-6);
+  padding: clamp(var(--space-4), 2vw, var(--space-6));
+  min-width: 0;
 }
 
 .card-footer {
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-3) clamp(var(--space-4), 2vw, var(--space-6));
   border-top: 1px solid var(--color-border-default);
   background-color: var(--color-bg-surface-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 /* Stat Card */
 .stat-card {
-  padding: var(--space-5);
+  padding: clamp(var(--space-4), 1.8vw, var(--space-5));
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-lg);
@@ -808,6 +848,8 @@ p {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: var(--space-3);
+  min-width: 0;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -924,16 +966,21 @@ p {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  max-width: 100%;
+  min-width: 0;
 }
 
 .table-responsive {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
 .data-table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   text-align: left;
   font-size: var(--font-size-sm);
@@ -1184,11 +1231,13 @@ p {
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
   width: 100%;
-  max-width: 580px;
-  max-height: 90vh;
+  max-width: min(580px, calc(100vw - var(--space-4)));
+  max-height: 88vh;
+  max-height: 88dvh;
   overflow-y: auto;
   position: relative;
   z-index: var(--z-modal);
+  margin: 0 auto;
 }
 
 .modal-header {
@@ -1228,23 +1277,95 @@ p {
 /* ==========================================================================
    Responsive Adaptations
    ========================================================================== */
-@media (max-width: 1024px) {
-  .app-shell {
-    grid-template-columns: 220px 1fr;
+/* Shared Meta Data Grid Component */
+.client-details-grid,
+.meta-data-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+  width: 100%;
+}
+
+.client-data-point,
+.meta-data-point {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.data-point-label {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.data-point-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+/* Ultra-Wide Monitors (1600px+) */
+@media (min-width: 1600px) {
+  .app-content {
+    max-width: min(94vw, 2200px);
   }
 }
 
+@media (min-width: 2200px) {
+  .app-content {
+    max-width: min(90vw, 2560px);
+  }
+}
+
+/* Tablet (<=1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+  
+  .app-sidebar {
+    width: 220px;
+  }
+
+  .app-main {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+  }
+  
+  .client-details-grid,
+  .meta-data-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Devices (<=768px) */
 @media (max-width: 768px) {
-  .app-shell {
-    grid-template-columns: 1fr;
+  .app-main {
+    margin-left: 0;
+    width: 100%;
   }
 
   .app-sidebar {
     position: fixed;
     top: 0;
-    left: -280px;
-    width: 280px;
+    bottom: 0;
+    left: calc(-1 * min(290px, 85vw) - 10px);
+    width: min(290px, 85vw);
     height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     box-shadow: var(--shadow-xl);
     transition: left var(--transition-smooth);
     z-index: var(--z-modal);
@@ -1263,7 +1384,9 @@ p {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
     z-index: calc(var(--z-modal) - 1);
   }
 
@@ -1278,19 +1401,110 @@ p {
   }
 
   .app-topbar {
-    padding: 0 var(--space-4);
+    padding: 0 var(--space-3);
   }
 
   .app-content {
-    padding: var(--space-4);
+    padding: var(--space-content-padding);
   }
 
   .page-header {
     flex-direction: column;
     align-items: stretch;
+    gap: var(--space-3);
   }
 
   .page-header-actions {
     justify-content: flex-start;
+    width: 100%;
+  }
+
+  .page-header-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .client-details-grid,
+  .meta-data-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Compact Smartphones & Narrow Screens (<=480px) */
+@media (max-width: 480px) {
+  .breadcrumbs a:not(:last-of-type) {
+    display: none;
+  }
+  .breadcrumbs-separator:first-of-type {
+    display: none;
+  }
+
+  .topbar-user span {
+    display: none;
+  }
+
+  .topbar-right {
+    gap: var(--space-2);
+  }
+
+  .client-details-grid,
+  .meta-data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn {
+    min-height: var(--touch-target-min);
+    padding: 0.5rem 0.875rem;
+  }
+
+  .btn-sm {
+    min-height: 38px;
+  }
+
+  .modal-container {
+    margin: var(--space-2);
+    width: calc(100vw - var(--space-4));
+    max-height: 92dvh;
+    border-radius: var(--radius-lg);
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: var(--space-4);
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    text-align: center;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Micro Devices & Narrow Foldable Covers (<=360px) */
+@media (max-width: 360px) {
+  .app-topbar {
+    padding: 0 var(--space-2);
+  }
+
+  .theme-toggle-label {
+    width: 52px;
+    height: 28px;
+  }
+
+  :root:has(#theme-toggle:checked) .theme-toggle-slider,
+  [data-theme="dark"] .theme-toggle-slider {
+    transform: translateX(22px);
+  }
+
+  .card-header,
+  .card-body,
+  .card-footer {
+    padding: var(--space-3);
   }
 }
