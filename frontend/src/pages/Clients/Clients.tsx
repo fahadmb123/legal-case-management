@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import "./Clients.css";
 
 export interface ClientRecord {
@@ -640,7 +641,9 @@ function Clients() {
 
                         <td>
                           <div className="primary-case-cell">
-                            <span className="case-number-pill">{client.primaryCaseNo}</span>
+                            <Link to="/cases" className="case-number-pill" title="View Case Brief">
+                              {client.primaryCaseNo}
+                            </Link>
                           </div>
                         </td>
 
