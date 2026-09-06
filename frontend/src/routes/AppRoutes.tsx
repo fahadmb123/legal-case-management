@@ -6,6 +6,7 @@ import Clients from "../pages/Clients/Clients";
 import ClientDetails from "../pages/Clients/ClientDetails";
 import CaseDetails from "../pages/Cases/CaseDetails";
 import Hearings from "../pages/Hearings/Hearings";
+import Settings from "../pages/Settings/Settings";
 
 function AppRoutes() {
     return (
@@ -20,6 +21,7 @@ function AppRoutes() {
                 <Route path="cases" element={<CaseDetails />} />
                 <Route path="cases/:caseId" element={<CaseDetails />} />
                 <Route path="hearings" element={<Hearings />} />
+                <Route path="settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
         </Routes>

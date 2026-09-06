@@ -1,0 +1,287 @@
+/**
+ * Chamber Settings Specific Styles
+ * Modern, High-End Legal Practice Aesthetics
+ */
+
+.settings-page-container {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  animation: fadeInSettings 0.25s ease-out;
+}
+
+@keyframes fadeInSettings {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settings-layout-grid {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: clamp(var(--space-4), 2.5vw, var(--space-8));
+  align-items: start;
+  min-width: 0;
+}
+
+/* Sticky Navigation Card */
+.settings-nav-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: calc(var(--topbar-height) + var(--space-4));
+  min-width: 0;
+}
+
+.settings-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.settings-nav-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.settings-nav-link:hover {
+  background-color: var(--color-bg-surface-subtle);
+  color: var(--color-text-primary);
+}
+
+.settings-nav-link.is-active {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Form flow */
+.settings-content-flow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.settings-section-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: clamp(var(--space-4), 2.5vw, var(--space-6));
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+  scroll-margin-top: calc(var(--topbar-height) + var(--space-4));
+}
+
+.section-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-primary);
+}
+
+.section-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.form-hint {
+  font-size: var(--font-size-2xs);
+  margin-top: 4px;
+  display: block;
+}
+
+/* Theme Preview Cards */
+.theme-preview-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.theme-card-preview {
+  border: 2px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  box-sizing: border-box;
+  background-color: var(--color-bg-surface-subtle);
+  outline: none;
+}
+
+.theme-card-preview:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-card-preview.is-selected {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-subtle);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.theme-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-mini-mockup {
+  height: 90px;
+  border-radius: var(--radius-md);
+  display: flex;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mockup-sidebar {
+  width: 32px;
+  height: 100%;
+}
+
+.mockup-content {
+  flex: 1;
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mockup-bar {
+  height: 6px;
+  border-radius: 3px;
+}
+
+.theme-card-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* Account & Session Card */
+.account-actions-card {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border-default);
+  padding-top: var(--space-4);
+}
+
+.workstation-title {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.workstation-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* Toast */
+.settings-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  background-color: #065f46;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border: 1px solid #10b981;
+  animation: slideToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .settings-layout-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .settings-nav-card {
+    position: sticky;
+    top: var(--topbar-height);
+    z-index: var(--z-sticky);
+    padding: var(--space-2);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: var(--color-bg-surface);
+    backdrop-filter: blur(8px);
+  }
+
+  .settings-nav-list {
+    flex-direction: row;
+    gap: var(--space-2);
+    white-space: nowrap;
+  }
+
+  .settings-nav-link {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+    min-height: 38px;
+    width: auto;
+  }
+
+  .theme-preview-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .settings-section-card button[type="submit"] {
+    width: 100%;
+    min-height: var(--touch-target-min);
+  }
+
+  .account-actions-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .account-actions-card .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

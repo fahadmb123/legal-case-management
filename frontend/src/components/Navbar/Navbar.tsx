@@ -14,7 +14,7 @@ function Navbar({ onToggleMobileNav }: NavbarProps) {
         if (path.startsWith("/clients")) return "Client Directory";
         if (path.startsWith("/cases")) return "Legal Cases";
         if (path.startsWith("/hearings")) return "Court Hearings Docket";
-        if (path.startsWith("/settings")) return "Chamber Settings";
+        if (path.startsWith("/settings")) return "Settings";
         return "Practice Dashboard";
     };
 
