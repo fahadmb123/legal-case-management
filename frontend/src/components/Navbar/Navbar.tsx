@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "../ui/ThemeToggle/ThemeToggle";
 
 interface NavbarProps {
@@ -7,6 +7,17 @@ interface NavbarProps {
 }
 
 function Navbar({ onToggleMobileNav }: NavbarProps) {
+    const location = useLocation();
+
+    const getBreadcrumbTitle = () => {
+        const path = location.pathname;
+        if (path.startsWith("/clients")) return "Client Directory";
+        if (path.startsWith("/cases")) return "Legal Cases";
+        if (path.startsWith("/hearings")) return "Upcoming Hearings";
+        if (path.startsWith("/settings")) return "Chamber Settings";
+        return "Practice Dashboard";
+    };
+
     return (
         <header className="app-topbar">
             <div className="topbar-left">
@@ -26,7 +37,7 @@ function Navbar({ onToggleMobileNav }: NavbarProps) {
               <nav className="breadcrumbs" aria-label="Breadcrumb">
                 <Link to="/" className="breadcrumb-parent">JurisDesk</Link>
                 <span className="breadcrumbs-separator" aria-hidden="true">/</span>
-                <span className="breadcrumbs-current" aria-current="page">Practice Dashboard</span>
+                <span className="breadcrumbs-current" aria-current="page">{getBreadcrumbTitle()}</span>
               </nav>
             </div>
 
