@@ -5,6 +5,7 @@ const Register = lazy(() => import("../pages/Register/Register"));
 const Layout = lazy(() => import("../components/Layout/Layout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Clients = lazy(() => import("../pages/Clients/Clients"));
+const AddClient = lazy(() => import("../pages/Clients/AddClient"));
 const ClientDetails = lazy(() => import("../pages/Clients/ClientDetails"));
 const CaseDetails = lazy(() => import("../pages/Cases/CaseDetails"));
 const Hearings = lazy(() => import("../pages/Hearings/Hearings"));
@@ -20,6 +21,8 @@ function AppRoutes() {
                 <Route index element={<Dashboard />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="clients" element={<Clients />} />
+                <Route path="clients/add" element={<AddClient />} />
+                <Route path="add-client" element={<AddClient />} />
                 <Route path="clients/:clientId" element={<ClientDetails />} />
                 <Route path="client-details" element={<ClientDetails />} />
                 <Route path="cases" element={<CaseDetails />} />

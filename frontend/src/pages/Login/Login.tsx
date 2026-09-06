@@ -1,12 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Login.css";
+import { loginSchema, type LoginFormData } from "./login.schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function Login() {
+    const navigate = useNavigate()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<LoginFormData>({
+        resolver: zodResolver(loginSchema),
+        mode: "onChange"
+    });
+
+    const onSubmit = async (data: LoginFormData) => {
+        console.log(data)
+        navigate("/")
+    };
+
     return (
         <div className="auth-page-wrapper">
             <div className="auth-split-grid">
-                
                 
                 <aside className="auth-brand-side">
                     <div className="auth-brand-header">
@@ -88,9 +105,10 @@ function Login() {
                             </div>
                         </div>
 
-                        <form action="../dashboard/index.html" method="get">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            {/* Email Field */}
                             <div className="form-group">
-                                <label className="form-label">
+                                <label className="form-label" htmlFor="login-email">
                                     Official Email Address
                                     <span className="form-label-required">*</span>
                                 </label>
@@ -102,17 +120,21 @@ function Login() {
                                         </svg>
                                     </span>
                                     <input
+                                        {...register("email")}
                                         type="email"
                                         id="login-email"
-                                        name="email"
-                                        className="form-input"
+                                        className={`form-input ${errors.email ? "input-error" : ""}`}
                                         placeholder="advocate.sharma@delhibar.org"
-                                        defaultValue="advocate.sharma@delhibar.org"
-                                        required
                                     />
                                 </div>
+                                {errors.email && (
+                                    <span className="field-error-message" style={{ color: "var(--color-danger, #ef4444)", fontSize: "var(--font-size-xs, 0.75rem)", marginTop: "4px", display: "block" }}>
+                                        {errors.email.message}
+                                    </span>
+                                )}
                             </div>
 
+                            {/* Password Field */}
                             <div className="form-group">
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
                                     <label htmlFor="login-password" className="form-label" style={{ marginBottom: 0 }}>
@@ -129,13 +151,11 @@ function Login() {
                                         </svg>
                                     </span>
                                     <input
+                                        {...register("password")}
                                         type="password"
                                         id="login-password"
-                                        name="password"
-                                        className="form-input"
+                                        className={`form-input ${errors.password ? "input-error" : ""}`}
                                         placeholder="••••••••••••"
-                                        defaultValue="LexisSecured2026!"
-                                        required
                                     />
                                     <span className="input-icon-right" title="Show/Hide Password indicator">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -144,11 +164,16 @@ function Login() {
                                         </svg>
                                     </span>
                                 </div>
+                                {errors.password && (
+                                    <span className="field-error-message" style={{ color: "var(--color-danger, #ef4444)", fontSize: "var(--font-size-xs, 0.75rem)", marginTop: "4px", display: "block" }}>
+                                        {errors.password.message}
+                                    </span>
+                                )}
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-6)' }}>
                                 <label className="form-check">
-                                    <input type="checkbox" className="form-check-input" defaultChecked />
+                                    <input type="checkbox" className="form-check-input" {...register("rememberWorkstation")} />
                                     <span>Remember this workstation</span>
                                 </label>
                             </div>

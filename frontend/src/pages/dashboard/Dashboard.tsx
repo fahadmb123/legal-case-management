@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -11,14 +12,14 @@ function Dashboard() {
                 <p>Welcome back, Advocate Sharma. Here is your daily court docket, active proceedings, and client summary.</p>
               </div>
               <div className="page-header-actions">
-                <a href="../add-client/index.html" className="btn btn-primary">
+                <Link to="/clients/add" className="btn btn-primary">
                   <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                   Add Client
-                </a>
-                <a href="../cases/index.html" className="btn btn-secondary">
+                </Link>
+                <Link to="/cases" className="btn btn-secondary">
                   <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
                   New Case
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -111,9 +112,9 @@ function Dashboard() {
                   Upcoming Priority Hearings
                 </h2>
                 <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-                  <a href="../hearings/index.html" className="btn btn-secondary btn-sm">
+                  <Link to="/hearings" className="btn btn-secondary btn-sm">
                     View Full Hearing Docket &rarr;
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -133,9 +134,9 @@ function Dashboard() {
                   <tbody>
                     <tr className="hearing-urgency-today">
                       <td>
-                        <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                        <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                           WP(C) 14022/2023
-                        </a>
+                        </Link>
                         <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>CNR: DLHC01-008291-2023</div>
                       </td>
                       <td>
@@ -158,15 +159,15 @@ function Dashboard() {
                         <span className="badge badge-warning">Stay Pending</span>
                       </td>
                       <td style={{ textAlign: 'right' }}>
-                        <a href="../case-details/index.html" className="btn btn-secondary btn-sm">Brief</a>
+                        <Link to="/cases" className="btn btn-secondary btn-sm">Brief</Link>
                       </td>
                     </tr>
 
                     <tr className="hearing-urgency-today">
                       <td>
-                        <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                        <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                           CRL.A. 419/2022
-                        </a>
+                        </Link>
                         <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>CNR: DLSK02-004112-2022</div>
                       </td>
                       <td>
@@ -189,15 +190,15 @@ function Dashboard() {
                         <span className="badge badge-success">Active</span>
                       </td>
                       <td style={{ textAlign: 'right' }}>
-                        <a href="../case-details/index.html" className="btn btn-secondary btn-sm">Brief</a>
+                        <Link to="/cases" className="btn btn-secondary btn-sm">Brief</Link>
                       </td>
                     </tr>
 
                     <tr className="hearing-urgency-tomorrow">
                       <td>
-                        <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                        <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                           CS(COMM) 298/2024
-                        </a>
+                        </Link>
                         <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>CNR: DLHC01-011299-2024</div>
                       </td>
                       <td>
@@ -220,15 +221,15 @@ function Dashboard() {
                         <span className="badge badge-info">Admission</span>
                       </td>
                       <td style={{ textAlign: 'right' }}>
-                        <a href="../case-details/index.html" className="btn btn-secondary btn-sm">Brief</a>
+                        <Link to="/cases" className="btn btn-secondary btn-sm">Brief</Link>
                       </td>
                     </tr>
 
                     <tr>
                       <td>
-                        <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                        <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                           ARB.P. 512/2023
-                        </a>
+                        </Link>
                         <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>CNR: DLHC01-007812-2023</div>
                       </td>
                       <td>
@@ -251,7 +252,7 @@ function Dashboard() {
                         <span className="badge badge-success">Active</span>
                       </td>
                       <td style={{ textAlign: 'right' }}>
-                        <a href="../case-details/index.html" className="btn btn-secondary btn-sm">Brief</a>
+                        <Link to="/cases" className="btn btn-secondary btn-sm">Brief</Link>
                       </td>
                     </tr>
                   </tbody>
@@ -271,7 +272,7 @@ function Dashboard() {
                     </svg>
                     Recent Clients
                   </h3>
-                  <a href="../clients/index.html" className="text-primary" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600 }}>View all &rarr;</a>
+                  <Link to="/clients" className="text-primary" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600 }}>View all &rarr;</Link>
                 </div>
 
                 <div className="table-responsive">
@@ -287,7 +288,7 @@ function Dashboard() {
                     <tbody>
                       <tr>
                         <td>
-                          <a href="../client-details/index.html" style={{ fontWeight: 600 }}>Vikramaditya Ent.</a>
+                          <Link to="/client-details" style={{ fontWeight: 600 }}>Vikramaditya Ent.</Link>
                           <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>Corporate Entity</div>
                         </td>
                         <td>+91 98112 34500</td>
@@ -296,7 +297,7 @@ function Dashboard() {
                       </tr>
                       <tr>
                         <td>
-                          <a href="../client-details/index.html" style={{ fontWeight: 600 }}>Suresh Chand Mathur</a>
+                          <Link to="/client-details" style={{ fontWeight: 600 }}>Suresh Chand Mathur</Link>
                           <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>Individual</div>
                         </td>
                         <td>+91 98710 99211</td>
@@ -305,7 +306,7 @@ function Dashboard() {
                       </tr>
                       <tr>
                         <td>
-                          <a href="../client-details/index.html" style={{ fontWeight: 600 }}>AeroTech Dynamics</a>
+                          <Link to="/client-details" style={{ fontWeight: 600 }}>AeroTech Dynamics</Link>
                           <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>Corporate Entity</div>
                         </td>
                         <td>+91 11 4455 6600</td>
@@ -314,7 +315,7 @@ function Dashboard() {
                       </tr>
                       <tr>
                         <td>
-                          <a href="../client-details/index.html" style={{ fontWeight: 600 }}>Pooja Singhania</a>
+                          <Link to="/client-details" style={{ fontWeight: 600 }}>Pooja Singhania</Link>
                           <div className="text-muted" style={{ fontSize: 'var(--font-size-2xs)' }}>Individual</div>
                         </td>
                         <td>+91 99990 12345</td>
@@ -335,7 +336,7 @@ function Dashboard() {
                     </svg>
                     Recent Cases
                   </h3>
-                  <a href="../cases/index.html" className="text-primary" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600 }}>View all &rarr;</a>
+                  <Link to="/cases" className="text-primary" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600 }}>View all &rarr;</Link>
                 </div>
 
                 <div className="table-responsive">
@@ -351,9 +352,9 @@ function Dashboard() {
                     <tbody>
                       <tr>
                         <td>
-                          <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                          <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                             WP(C) 14022/23
-                          </a>
+                          </Link>
                         </td>
                         <td>Writ Petition</td>
                         <td>Delhi High Court</td>
@@ -361,9 +362,9 @@ function Dashboard() {
                       </tr>
                       <tr>
                         <td>
-                          <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                          <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                             CS(COMM) 298/24
-                          </a>
+                          </Link>
                         </td>
                         <td>Commercial Suit</td>
                         <td>Delhi High Court</td>
@@ -371,9 +372,9 @@ function Dashboard() {
                       </tr>
                       <tr>
                         <td>
-                          <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                          <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                             CRL.A. 419/22
-                          </a>
+                          </Link>
                         </td>
                         <td>Criminal Appeal</td>
                         <td>Saket Dist. Court</td>
@@ -381,9 +382,9 @@ function Dashboard() {
                       </tr>
                       <tr>
                         <td>
-                          <a href="../case-details/index.html" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
+                          <Link to="/cases" className="font-mono font-semibold" style={{ color: 'var(--color-primary)' }}>
                             ARB.P. 512/23
-                          </a>
+                          </Link>
                         </td>
                         <td>Arbitration Pet.</td>
                         <td>Delhi Arb. Centre</td>
