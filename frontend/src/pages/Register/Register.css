@@ -1,0 +1,247 @@
+/**
+ * Advocate Registration Page Specific Styles
+ * Modern, High-End Legal Practice Aesthetics
+ */
+
+.register-layout {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  background-color: var(--color-bg-app);
+  overflow-x: hidden;
+  position: relative;
+  animation: fadeInRegister 0.25s ease-out;
+}
+
+@keyframes fadeInRegister {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Brand Side */
+.register-brand-side {
+  background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: clamp(var(--space-6), 4vw, var(--space-10)) clamp(var(--space-5), 3vw, var(--space-8));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #ffffff;
+  min-width: 0;
+}
+
+.register-brand-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.register-brand-main {
+  max-width: 480px;
+  min-width: 0;
+}
+
+.register-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px 12px;
+  background-color: rgba(37, 99, 235, 0.25);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: #93c5fd;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.register-title {
+  font-family: var(--font-family-serif);
+  font-size: clamp(1.65rem, 1.3rem + 1.2vw, 2.25rem);
+  line-height: 1.25;
+  color: #ffffff;
+  margin-bottom: var(--space-4);
+  word-break: break-word;
+}
+
+.register-desc {
+  font-size: var(--font-size-sm);
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+.verification-notice-card {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.verification-notice-card svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #38bdf8;
+}
+
+.register-brand-footer {
+  font-size: var(--font-size-xs);
+  color: #64748b;
+}
+
+/* Form Side */
+.register-form-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(var(--space-5), 3vw, var(--space-8)) clamp(var(--space-4), 3vw, var(--space-10));
+  background-color: var(--color-bg-surface);
+  overflow-y: auto;
+  min-width: 0;
+  position: relative;
+}
+
+.register-theme-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10;
+}
+
+.register-form-container {
+  width: 100%;
+  max-width: 580px;
+  min-width: 0;
+}
+
+.register-form-header {
+  margin-bottom: var(--space-6);
+}
+
+.register-form-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-primary);
+}
+
+.register-form-subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: 0;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+/* Password Strength Indicator */
+.password-strength-indicator {
+  margin-top: 6px;
+}
+
+.strength-meter {
+  display: flex;
+  gap: 4px;
+  height: 4px;
+  margin-bottom: 4px;
+}
+
+.strength-segment {
+  flex: 1;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-border-default);
+  transition: background-color var(--transition-fast);
+}
+
+.strength-segment.is-active {
+  background-color: var(--color-success);
+}
+
+.strength-label {
+  font-size: var(--font-size-2xs);
+  color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+}
+
+.register-footer-link {
+  margin-top: var(--space-6);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Toast */
+.register-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  background-color: #065f46;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border: 1px solid #10b981;
+  animation: slideToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .register-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .register-brand-side {
+    display: none;
+  }
+
+  .register-form-side {
+    padding: clamp(var(--space-6), 5vw, var(--space-10)) var(--space-4);
+    min-height: 100vh;
+    min-height: 100dvh;
+    justify-content: flex-start;
+  }
+
+  .form-row-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .register-form-container .btn-primary {
+    min-height: var(--touch-target-min);
+    width: 100%;
+    justify-content: center;
+  }
+}

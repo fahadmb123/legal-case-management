@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Login.css";
 
@@ -164,7 +165,7 @@ function Login() {
 
                         <div className="auth-form-footer">
                             Don't have an advocate account?
-                            <a href="../register/index.html">Register new practice &rarr;</a>
+                            <Link to="/register">Register new practice &rarr;</Link>
                         </div>
                     </div>
                 </main>
