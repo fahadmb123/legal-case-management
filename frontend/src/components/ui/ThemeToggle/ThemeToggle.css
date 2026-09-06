@@ -1,0 +1,78 @@
+.theme-toggle-label {
+    position: relative;
+
+    width: 60px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 3px;
+
+    border: 1px solid #dbe3ed;
+    border-radius: 999px;
+
+    background: #f1f5f9;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    /* The soft shading from the original design */
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.06),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.8),
+        0 1px 3px rgba(15, 23, 42, 0.04);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.theme-toggle-icon {
+    position: relative;
+
+    z-index: 2;
+
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #64748b;
+
+    flex-shrink: 0;
+}
+
+.theme-toggle-slider {
+    position: absolute;
+
+    top: 2px;
+    left: 2px;
+
+    width: 26px;
+    height: 26px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.08),
+        0 2px 5px rgba(15, 23, 42, 0.05);
+
+    transition: transform 0.2s ease;
+}
+
+/* Dark mode: move the white circle to the right */
+
+.theme-toggle-label.dark .theme-toggle-slider {
+    transform: translateX(28px);
+}

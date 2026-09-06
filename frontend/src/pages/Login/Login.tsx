@@ -1,10 +1,12 @@
+import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle"
 import "./Login.css"
 
 
 function Login(){
     return (
     <>
-        <input type="checkbox" id="theme-toggle" className="theme-switch-checkbox" aria-label="Toggle dark mode" />
+        {/*<input type="checkbox" id="theme-toggle" className="theme-switch-checkbox" aria-label="Toggle dark mode" />*/}
+        
 
             <div className="auth-page-wrapper">
                 <div className="auth-split-grid">
@@ -71,7 +73,7 @@ function Login(){
                
                 <main className="auth-form-side">
                    
-                    <div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem' }}>
+                    {/*<div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem' }}>
                         <label htmlFor="theme-toggle" className="theme-toggle-label" title="Toggle Light / Dark Mode">
                             <span className="theme-toggle-icon">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -91,6 +93,9 @@ function Login(){
                             </span>
                             <span className="theme-toggle-slider"></span>
                         </label>
+                    </div>*/}
+                    <div className="theme-toggle-position">
+                        <ThemeToggle />
                     </div>
 
                     <div className="auth-card">
