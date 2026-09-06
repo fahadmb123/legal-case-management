@@ -1034,14 +1034,14 @@ function Clients() {
                   <div className="form-group">
                     <label className="form-label">Representation Status</label>
                     <select
-                      className="form-select"
-                      value={newStatus}
-                      onChange={(e) => setNewStatus(e.target.value as any)}
-                    >
-                      <option value="Active">Active Representation</option>
-                      <option value="Pending Sec 11">Pending Sec 11</option>
-                      <option value="Consultation">Consultation Only</option>
-                      <option value="Disposed">Disposed</option>
+                        className="form-select"
+                        value={newStatus}
+                        onChange={(e) => setNewStatus(e.target.value as "Active" | "Pending Sec 11" | "Consultation" | "Disposed")}
+                        >
+                        <option value="Active">Active Representation</option>
+                        <option value="Pending Sec 11">Pending Sec 11</option>
+                        <option value="Consultation">Consultation Only</option>
+                        <option value="Disposed">Disposed</option>
                     </select>
                   </div>
 
