@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@prisma/orm-postgres": "^8.0.0-rc.8",
     "bcrypt": "^6.0.0",
@@ -29,7 +29,7 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.5.0",
-    "prisma": "^8.0.0-rc.10",
+    "prisma": "^8.0.0-rc.13",
     "tsx": "^4.23.13",
     "typescript": "^5.9.3"
   }
