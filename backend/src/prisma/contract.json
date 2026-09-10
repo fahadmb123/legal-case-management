@@ -12,6 +12,10 @@
       "model": "Client",
       "namespace": "public"
     },
+    "hearing": {
+      "model": "Hearing",
+      "namespace": "public"
+    },
     "user": {
       "model": "User",
       "namespace": "public"
@@ -114,6 +118,21 @@
                 },
                 "to": {
                   "model": "Client",
+                  "namespace": "public"
+                }
+              },
+              "hearings": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "caseId"
+                  ]
+                },
+                "to": {
+                  "model": "Hearing",
                   "namespace": "public"
                 }
               },
@@ -283,6 +302,113 @@
               },
               "namespaceId": "public",
               "table": "client"
+            }
+          },
+          "Hearing": {
+            "fields": {
+              "caseId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "courtName": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "hearingDate": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "nextDate": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "purpose": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "result": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "case": {
+                "cardinality": "N:1",
+                "on": {
+                  "localFields": [
+                    "caseId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Case",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "caseId": {
+                  "column": "caseId"
+                },
+                "courtName": {
+                  "column": "courtName"
+                },
+                "createdAt": {
+                  "column": "createdAt"
+                },
+                "hearingDate": {
+                  "column": "hearingDate"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "nextDate": {
+                  "column": "nextDate"
+                },
+                "purpose": {
+                  "column": "purpose"
+                },
+                "result": {
+                  "column": "result"
+                }
+              },
+              "namespaceId": "public",
+              "table": "hearing"
             }
           },
           "User": {
@@ -594,6 +720,88 @@
               },
               "uniques": []
             },
+            "hearing": {
+              "columns": {
+                "caseId": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "courtName": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "createdAt": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "hearingDate": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "nextDate": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "purpose": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "result": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                }
+              },
+              "foreignKeys": [
+                {
+                  "source": {
+                    "columns": [
+                      "caseId"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "hearing"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "case"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "caseId"
+                  ],
+                  "name": "hearing_caseId_idx_f7093793",
+                  "prefix": "hearing_caseId_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": []
+            },
             "user": {
               "columns": {
                 "createdAt": {
@@ -647,10 +855,10 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "586297f5da7784bd1cc90a68dc8981c8d84bbf9f0dbafa57d03136502511eeaa"
+    "storageHash": "0b04e0bd06d87d68992288520cc765e19417cc64b2d63faed144dd6a224da887"
   },
   "execution": {
-    "executionHash": "f49728910ba756ab89c7b84ae85045b8578c9fb035fd02e4e37d50c4d02caeeb",
+    "executionHash": "e0865a1d4d111581eb1123ed4b095fba1c4ad12a0f5fc06676a5a80f09fedc11",
     "mutations": {
       "defaults": [
         {
@@ -673,6 +881,17 @@
             "column": "id",
             "namespace": "public",
             "table": "client"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "uuidv4",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "id",
+            "namespace": "public",
+            "table": "hearing"
           }
         },
         {
