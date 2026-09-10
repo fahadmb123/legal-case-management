@@ -33,9 +33,9 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'5555cadda0228f286130b26196766a69a325e309d116b8bcdfc2d5de959d0668'>;
+  StorageHashBase<'586297f5da7784bd1cc90a68dc8981c8d84bbf9f0dbafa57d03136502511eeaa'>;
 export type ExecutionHash =
-  ExecutionHashBase<'c6c68895811eac8510a3105769605e248431b77d0f5294ccf29b9aa8ce355232'>;
+  ExecutionHashBase<'f49728910ba756ab89c7b84ae85045b8578c9fb035fd02e4e37d50c4d02caeeb'>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
 
@@ -241,6 +241,28 @@ type DefaultLiteralValue<CodecId extends string, Encoded> = CodecId extends keyo
 
 export type FieldOutputTypes = {
   readonly public: {
+    readonly Case: {
+      readonly id: CodecTypes['pg/text@1']['output'];
+      readonly caseNumber: CodecTypes['pg/text@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly description: CodecTypes['pg/text@1']['output'] | null;
+      readonly courtName: CodecTypes['pg/text@1']['output'] | null;
+      readonly caseType: CodecTypes['pg/text@1']['output'] | null;
+      readonly status: CodecTypes['pg/text@1']['output'];
+      readonly filingDate: CodecTypes['pg/timestamptz-temporal@1']['output'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
+      readonly userId: CodecTypes['pg/text@1']['output'];
+      readonly clientId: CodecTypes['pg/text@1']['output'];
+    };
+    readonly Client: {
+      readonly id: CodecTypes['pg/text@1']['output'];
+      readonly name: CodecTypes['pg/text@1']['output'];
+      readonly email: CodecTypes['pg/text@1']['output'] | null;
+      readonly phone: CodecTypes['pg/text@1']['output'] | null;
+      readonly address: CodecTypes['pg/text@1']['output'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
+      readonly userId: CodecTypes['pg/text@1']['output'];
+    };
     readonly User: {
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
@@ -252,6 +274,28 @@ export type FieldOutputTypes = {
 };
 export type FieldInputTypes = {
   readonly public: {
+    readonly Case: {
+      readonly id: CodecTypes['pg/text@1']['input'];
+      readonly caseNumber: CodecTypes['pg/text@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly description: CodecTypes['pg/text@1']['input'] | null;
+      readonly courtName: CodecTypes['pg/text@1']['input'] | null;
+      readonly caseType: CodecTypes['pg/text@1']['input'] | null;
+      readonly status: CodecTypes['pg/text@1']['input'];
+      readonly filingDate: CodecTypes['pg/timestamptz-temporal@1']['input'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
+      readonly userId: CodecTypes['pg/text@1']['input'];
+      readonly clientId: CodecTypes['pg/text@1']['input'];
+    };
+    readonly Client: {
+      readonly id: CodecTypes['pg/text@1']['input'];
+      readonly name: CodecTypes['pg/text@1']['input'];
+      readonly email: CodecTypes['pg/text@1']['input'] | null;
+      readonly phone: CodecTypes['pg/text@1']['input'] | null;
+      readonly address: CodecTypes['pg/text@1']['input'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
+      readonly userId: CodecTypes['pg/text@1']['input'];
+    };
     readonly User: {
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
@@ -263,6 +307,28 @@ export type FieldInputTypes = {
 };
 export type StorageColumnTypes = {
   readonly public: {
+    readonly case: {
+      readonly caseNumber: CodecTypes['pg/text@1']['output'];
+      readonly caseType: CodecTypes['pg/text@1']['output'] | null;
+      readonly clientId: CodecTypes['pg/text@1']['output'];
+      readonly courtName: CodecTypes['pg/text@1']['output'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
+      readonly description: CodecTypes['pg/text@1']['output'] | null;
+      readonly filingDate: CodecTypes['pg/timestamptz-temporal@1']['output'] | null;
+      readonly id: CodecTypes['pg/text@1']['output'];
+      readonly status: CodecTypes['pg/text@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly userId: CodecTypes['pg/text@1']['output'];
+    };
+    readonly client: {
+      readonly address: CodecTypes['pg/text@1']['output'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
+      readonly email: CodecTypes['pg/text@1']['output'] | null;
+      readonly id: CodecTypes['pg/text@1']['output'];
+      readonly name: CodecTypes['pg/text@1']['output'];
+      readonly phone: CodecTypes['pg/text@1']['output'] | null;
+      readonly userId: CodecTypes['pg/text@1']['output'];
+    };
     readonly user: {
       readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
       readonly email: CodecTypes['pg/text@1']['output'];
@@ -274,6 +340,28 @@ export type StorageColumnTypes = {
 };
 export type StorageColumnInputTypes = {
   readonly public: {
+    readonly case: {
+      readonly caseNumber: CodecTypes['pg/text@1']['input'];
+      readonly caseType: CodecTypes['pg/text@1']['input'] | null;
+      readonly clientId: CodecTypes['pg/text@1']['input'];
+      readonly courtName: CodecTypes['pg/text@1']['input'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
+      readonly description: CodecTypes['pg/text@1']['input'] | null;
+      readonly filingDate: CodecTypes['pg/timestamptz-temporal@1']['input'] | null;
+      readonly id: CodecTypes['pg/text@1']['input'];
+      readonly status: CodecTypes['pg/text@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly userId: CodecTypes['pg/text@1']['input'];
+    };
+    readonly client: {
+      readonly address: CodecTypes['pg/text@1']['input'] | null;
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
+      readonly email: CodecTypes['pg/text@1']['input'] | null;
+      readonly id: CodecTypes['pg/text@1']['input'];
+      readonly name: CodecTypes['pg/text@1']['input'];
+      readonly phone: CodecTypes['pg/text@1']['input'] | null;
+      readonly userId: CodecTypes['pg/text@1']['input'];
+    };
     readonly user: {
       readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
       readonly email: CodecTypes['pg/text@1']['input'];
@@ -301,6 +389,176 @@ type ContractBase = Omit<
         readonly kind: 'postgres-schema';
         readonly entries: {
           readonly table: {
+            readonly case: {
+              columns: {
+                readonly id: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly caseNumber: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly title: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly description: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                };
+                readonly courtName: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                };
+                readonly caseType: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                };
+                readonly status: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly default: {
+                    readonly kind: 'literal';
+                    readonly value: DefaultLiteralValue<'pg/text@1', 'ACTIVE'>;
+                  };
+                };
+                readonly filingDate: {
+                  readonly nativeType: 'timestamptz';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                  readonly nullable: true;
+                };
+                readonly createdAt: {
+                  readonly nativeType: 'timestamptz';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                  readonly nullable: false;
+                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
+                };
+                readonly userId: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly clientId: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [{ readonly columns: readonly ['caseNumber'] }];
+              indexes: readonly [
+                {
+                  readonly name: 'case_userId_idx_a489d58a';
+                  readonly prefix: 'case_userId_idx';
+                  readonly columns: readonly ['userId'];
+                  readonly unique: false;
+                },
+                {
+                  readonly name: 'case_clientId_idx_153a9a49';
+                  readonly prefix: 'case_clientId_idx';
+                  readonly columns: readonly ['clientId'];
+                  readonly unique: false;
+                },
+              ];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'case';
+                    readonly columns: readonly ['userId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'user';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'case';
+                    readonly columns: readonly ['clientId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'client';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
+            };
+            readonly client: {
+              columns: {
+                readonly id: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly name: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly email: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                };
+                readonly phone: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                };
+                readonly address: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                };
+                readonly createdAt: {
+                  readonly nativeType: 'timestamptz';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                  readonly nullable: false;
+                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
+                };
+                readonly userId: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [];
+              indexes: readonly [
+                {
+                  readonly name: 'client_userId_idx_a489d58a';
+                  readonly prefix: 'client_userId_idx';
+                  readonly columns: readonly ['userId'];
+                  readonly unique: false;
+                },
+              ];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'client';
+                    readonly columns: readonly ['userId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'user';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
+            };
             readonly user: {
               columns: {
                 readonly id: {
@@ -347,11 +605,171 @@ type ContractBase = Omit<
   readonly targetFamily: 'sql';
   readonly roots: {
     readonly user: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
+    readonly client: { readonly namespace: 'public' & NamespaceId; readonly model: 'Client' };
+    readonly case: { readonly namespace: 'public' & NamespaceId; readonly model: 'Case' };
   };
   readonly domain: {
     readonly namespaces: {
       readonly public: {
         readonly models: {
+          readonly Case: {
+            readonly fields: {
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly caseNumber: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly title: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly description: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly courtName: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly caseType: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly status: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly filingDate: {
+                readonly nullable: true;
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                };
+              };
+              readonly createdAt: {
+                readonly nullable: false;
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                };
+              };
+              readonly userId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly clientId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: {
+              readonly client: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Client';
+                };
+                readonly cardinality: 'N:1';
+                readonly on: {
+                  readonly localFields: readonly ['clientId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+              readonly user: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
+                readonly cardinality: 'N:1';
+                readonly on: {
+                  readonly localFields: readonly ['userId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+            };
+            readonly storage: {
+              readonly table: 'case';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly id: { readonly column: 'id' };
+                readonly caseNumber: { readonly column: 'caseNumber' };
+                readonly title: { readonly column: 'title' };
+                readonly description: { readonly column: 'description' };
+                readonly courtName: { readonly column: 'courtName' };
+                readonly caseType: { readonly column: 'caseType' };
+                readonly status: { readonly column: 'status' };
+                readonly filingDate: { readonly column: 'filingDate' };
+                readonly createdAt: { readonly column: 'createdAt' };
+                readonly userId: { readonly column: 'userId' };
+                readonly clientId: { readonly column: 'clientId' };
+              };
+            };
+          };
+          readonly Client: {
+            readonly fields: {
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly name: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly email: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly phone: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly address: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly createdAt: {
+                readonly nullable: false;
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                };
+              };
+              readonly userId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: {
+              readonly cases: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Case' };
+                readonly cardinality: '1:N';
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['clientId'];
+                };
+              };
+              readonly user: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
+                readonly cardinality: 'N:1';
+                readonly on: {
+                  readonly localFields: readonly ['userId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+            };
+            readonly storage: {
+              readonly table: 'client';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly id: { readonly column: 'id' };
+                readonly name: { readonly column: 'name' };
+                readonly email: { readonly column: 'email' };
+                readonly phone: { readonly column: 'phone' };
+                readonly address: { readonly column: 'address' };
+                readonly createdAt: { readonly column: 'createdAt' };
+                readonly userId: { readonly column: 'userId' };
+              };
+            };
+          };
           readonly User: {
             readonly fields: {
               readonly id: {
@@ -378,7 +796,27 @@ type ContractBase = Omit<
                 };
               };
             };
-            readonly relations: Record<string, never>;
+            readonly relations: {
+              readonly cases: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Case' };
+                readonly cardinality: '1:N';
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['userId'];
+                };
+              };
+              readonly clients: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Client';
+                };
+                readonly cardinality: '1:N';
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['userId'];
+                };
+              };
+            };
             readonly storage: {
               readonly table: 'user';
               readonly namespaceId: 'public';
@@ -418,6 +856,22 @@ type ContractBase = Omit<
     readonly executionHash: ExecutionHash;
     readonly mutations: {
       readonly defaults: readonly [
+        {
+          readonly ref: {
+            readonly namespace: 'public';
+            readonly table: 'case';
+            readonly column: 'id';
+          };
+          readonly onCreate: { readonly kind: 'generator'; readonly id: 'uuidv4' };
+        },
+        {
+          readonly ref: {
+            readonly namespace: 'public';
+            readonly table: 'client';
+            readonly column: 'id';
+          };
+          readonly onCreate: { readonly kind: 'generator'; readonly id: 'uuidv4' };
+        },
         {
           readonly ref: {
             readonly namespace: 'public';

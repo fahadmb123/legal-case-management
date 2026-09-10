@@ -6,4 +6,39 @@ model User {
   email        String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
+
+  clients      Client[]
+  cases        Case[]
+}
+
+model Client {
+  id          String   @id @default(uuid())
+  name        String
+  email       String?
+  phone       String?
+  address     String?
+  createdAt   DateTime @default(now())
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+
+  cases       Case[]
+}
+
+model Case {
+  id           String   @id @default(uuid())
+  caseNumber   String   @unique
+  title        String
+  description  String?
+  courtName    String?
+  caseType     String?
+  status       String   @default("ACTIVE")
+  filingDate   DateTime?
+  createdAt    DateTime @default(now())
+
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+
+  clientId     String
+  client       Client   @relation(fields: [clientId], references: [id])
 }
