@@ -1,0 +1,583 @@
+[
+  {
+    "id": "schema.public",
+    "label": "Create schema \"public\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Create schema \"public\"",
+        "sql": "CREATE SCHEMA IF NOT EXISTS \"public\"",
+        "params": []
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "table.case",
+    "label": "Create table \"case\"",
+    "summary": "Creates table \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"case\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"case\"",
+        "sql": "CREATE TABLE \"public\".\"case\" (\n  \"caseNumber\" text NOT NULL,\n  \"caseType\" text,\n  \"clientId\" text NOT NULL,\n  \"courtName\" text,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"description\" text,\n  \"filingDate\" timestamptz,\n  \"id\" text NOT NULL,\n  \"status\" text DEFAULT 'ACTIVE' NOT NULL,\n  \"title\" text NOT NULL,\n  \"userId\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"case\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.client",
+    "label": "Create table \"client\"",
+    "summary": "Creates table \"client\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "client"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"client\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"client\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"client\"",
+        "sql": "CREATE TABLE \"public\".\"client\" (\n  \"address\" text,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"email\" text,\n  \"id\" text NOT NULL,\n  \"name\" text NOT NULL,\n  \"phone\" text,\n  \"userId\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"client\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"client\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.hearing",
+    "label": "Create table \"hearing\"",
+    "summary": "Creates table \"hearing\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "hearing"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"hearing\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"hearing\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"hearing\"",
+        "sql": "CREATE TABLE \"public\".\"hearing\" (\n  \"caseId\" text NOT NULL,\n  \"courtName\" text,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"hearingDate\" timestamptz NOT NULL,\n  \"id\" text NOT NULL,\n  \"nextDate\" timestamptz,\n  \"purpose\" text,\n  \"result\" text,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"hearing\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"hearing\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.user",
+    "label": "Create table \"user\"",
+    "summary": "Creates table \"user\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"user\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"user\"",
+        "sql": "CREATE TABLE \"public\".\"user\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"email\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"name\" text NOT NULL,\n  \"passwordHash\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"user\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.case.case_caseNumber_key",
+    "label": "Add unique constraint on \"case\" (caseNumber)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "case_caseNumber_key",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"case_caseNumber_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_caseNumber_key",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"case_caseNumber_key\"",
+        "sql": "ALTER TABLE \"public\".\"case\" ADD CONSTRAINT \"case_caseNumber_key\" UNIQUE (\"caseNumber\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"case_caseNumber_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_caseNumber_key",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.user.user_email_key",
+    "label": "Add unique constraint on \"user\" (email)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "user_email_key",
+        "table": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"user_email_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_email_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"user_email_key\"",
+        "sql": "ALTER TABLE \"public\".\"user\" ADD CONSTRAINT \"user_email_key\" UNIQUE (\"email\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"user_email_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_email_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.case.case_clientId_idx_153a9a49",
+    "label": "Create index \"case_clientId_idx_153a9a49\" on \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "case_clientId_idx_153a9a49",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"case_clientId_idx_153a9a49\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case_clientId_idx_153a9a49\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"case_clientId_idx_153a9a49\"",
+        "sql": "CREATE INDEX \"case_clientId_idx_153a9a49\" ON \"public\".\"case\" (\"clientId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"case_clientId_idx_153a9a49\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case_clientId_idx_153a9a49\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.case.case_userId_idx_a489d58a",
+    "label": "Create index \"case_userId_idx_a489d58a\" on \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "case_userId_idx_a489d58a",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"case_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"case_userId_idx_a489d58a\"",
+        "sql": "CREATE INDEX \"case_userId_idx_a489d58a\" ON \"public\".\"case\" (\"userId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"case_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.client.client_userId_idx_a489d58a",
+    "label": "Create index \"client_userId_idx_a489d58a\" on \"client\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "client_userId_idx_a489d58a",
+        "table": "client"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"client_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"client_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"client_userId_idx_a489d58a\"",
+        "sql": "CREATE INDEX \"client_userId_idx_a489d58a\" ON \"public\".\"client\" (\"userId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"client_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"client_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.hearing.hearing_caseId_idx_f7093793",
+    "label": "Create index \"hearing_caseId_idx_f7093793\" on \"hearing\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "hearing_caseId_idx_f7093793",
+        "table": "hearing"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"hearing_caseId_idx_f7093793\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"hearing_caseId_idx_f7093793\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"hearing_caseId_idx_f7093793\"",
+        "sql": "CREATE INDEX \"hearing_caseId_idx_f7093793\" ON \"public\".\"hearing\" (\"caseId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"hearing_caseId_idx_f7093793\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"hearing_caseId_idx_f7093793\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.case.case_userId_fkey",
+    "label": "Add foreign key \"case_userId_fkey\" on \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "case_userId_fkey",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"case_userId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_userId_fkey",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"case_userId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"case\"\nADD CONSTRAINT \"case_userId_fkey\"\nFOREIGN KEY (\"userId\")\nREFERENCES \"public\".\"user\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"case_userId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_userId_fkey",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.case.case_clientId_fkey",
+    "label": "Add foreign key \"case_clientId_fkey\" on \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "case_clientId_fkey",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"case_clientId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_clientId_fkey",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"case_clientId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"case\"\nADD CONSTRAINT \"case_clientId_fkey\"\nFOREIGN KEY (\"clientId\")\nREFERENCES \"public\".\"client\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"case_clientId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_clientId_fkey",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.client.client_userId_fkey",
+    "label": "Add foreign key \"client_userId_fkey\" on \"client\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "client_userId_fkey",
+        "table": "client"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"client_userId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "client_userId_fkey",
+          "public",
+          "\"public\".\"client\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"client_userId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"client\"\nADD CONSTRAINT \"client_userId_fkey\"\nFOREIGN KEY (\"userId\")\nREFERENCES \"public\".\"user\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"client_userId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "client_userId_fkey",
+          "public",
+          "\"public\".\"client\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.hearing.hearing_caseId_fkey",
+    "label": "Add foreign key \"hearing_caseId_fkey\" on \"hearing\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "hearing_caseId_fkey",
+        "table": "hearing"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"hearing_caseId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "hearing_caseId_fkey",
+          "public",
+          "\"public\".\"hearing\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"hearing_caseId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"hearing\"\nADD CONSTRAINT \"hearing_caseId_fkey\"\nFOREIGN KEY (\"caseId\")\nREFERENCES \"public\".\"case\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"hearing_caseId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "hearing_caseId_fkey",
+          "public",
+          "\"public\".\"hearing\""
+        ]
+      }
+    ]
+  }
+]
