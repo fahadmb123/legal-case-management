@@ -1,4 +1,5 @@
 import type { IUserRepository } from "../../../domain/repositories/IUserRepository";
+import type { ILoginUseCase, LoginResult } from "../../../domain/use-cases/ILoginUseCase";
 
 export interface IPasswordVerifier {
   verify(password: string, passwordHash: string): Promise<boolean>
@@ -8,7 +9,7 @@ export interface ITokenService {
   generate(userId: string): string
 }
 
-export class LoginUseCase {
+export class LoginUseCase implements ILoginUseCase {
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly passwordVerifier: IPasswordVerifier,

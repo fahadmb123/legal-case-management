@@ -1,23 +1,12 @@
 import type { Request, Response } from "express";
-import { RegisterUseCase } from "../../application/use-cases/auth/RegisterUseCase";
-import { LoginUseCase } from "../../application/use-cases/auth/LoginUseCase";
-import { PrismaUserRepository } from "../../infrastructure/database/prisma/repositories/PrismaUserRepository";
-import { BcryptPasswordService } from "../../infrastructure/services/BcryptPasswordService";
-import { JwtTokenService } from "../../infrastructure/services/JwtTokenService";
+import type { IRegisterUseCase } from "../../domain/use-cases/IRegisterUseCase";
+import type { ILoginUseCase } from "../../domain/use-cases/ILoginUseCase";
 
 export class AuthController {
-  private readonly registerUseCase: RegisterUseCase;
-  private readonly loginUseCase: LoginUseCase;
-
-  constructor() {
-    // Basic dependency injection setup
-    const userRepository = new PrismaUserRepository();
-    const passwordService = new BcryptPasswordService();
-    const tokenService = new JwtTokenService();
-
-    this.registerUseCase = new RegisterUseCase(userRepository, passwordService);
-    this.loginUseCase = new LoginUseCase(userRepository, passwordService, tokenService);
-  }
+  constructor(
+    private readonly registerUseCase: IRegisterUseCase,
+    private readonly loginUseCase: ILoginUseCase
+  ) {}
 
   async register(req: Request, res: Response): Promise<void> {
     try {

@@ -1,11 +1,12 @@
 import type { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import type { User } from "../../../domain/entities/User";
+import type { IRegisterUseCase } from "../../../domain/use-cases/IRegisterUseCase";
 
 export interface IPasswordHasher {
   hash(password: string): Promise<string>;
 }
 
-export class RegisterUseCase {
+export class RegisterUseCase implements IRegisterUseCase {
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly passwordHasher: IPasswordHasher
