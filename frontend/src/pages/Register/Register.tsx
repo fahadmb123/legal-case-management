@@ -17,14 +17,7 @@ function Register() {
     watch,
     formState: { errors },
   } = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      fullname: "Adv. Rajesh Kumar Sharma",
-      email: "sharma@lawchambers.org",
-      password: "JudiciaryPass@2026",
-      confirmPassword: "JudiciaryPass@2026",
-      agreedToTerms: true,
-    }
+    resolver: zodResolver(registerSchema)
   });
 
   const passwordValue = watch("password");
