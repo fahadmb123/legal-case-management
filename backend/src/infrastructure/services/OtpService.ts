@@ -1,18 +1,19 @@
 import crypto from "crypto";
+import { emailService } from "./EmailService";
 
 export class OtpService {
   private store: Map<string, { otp: string; expiresAt: number; data?: any }> = new Map();
 
   private readonly EXPIRATION_MINUTES = 10;
 
-  generateOtp(email: string, data?: any): string {
+  async generateOtp(email: string, data?: any): Promise<string> {
     const otp = crypto.randomInt(100000, 999999).toString();
     
     const expiresAt = Date.now() + this.EXPIRATION_MINUTES * 60 * 1000;
     
     this.store.set(email, { otp, expiresAt, data });
     
-    console.log(`\n\n[MOCK EMAIL SERVICE] OTP for ${email}: ${otp} (Valid for ${this.EXPIRATION_MINUTES} minutes)\n\n`);
+    await emailService.sendOtpEmail(email, otp, this.EXPIRATION_MINUTES);
     
     return otp;
   }

@@ -20,7 +20,7 @@ export class RegisterUseCase implements IRegisterUseCase {
 
         if (existingUser) throw new AppError("User with this email already exists", 409)
 
-        otpService.generateOtp(email, { name, password });
+        await otpService.generateOtp(email, { name, password });
 
         return { message: "OTP sent to email" };
     }
