@@ -2,6 +2,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import {lazy} from "react"
 const Login = lazy(() => import("../pages/Login/Login"));
 const Register = lazy(() => import("../pages/Register/Register"));
+const ForgotPassword = lazy(() => import("../pages/ForgotPassword/ForgotPassword"));
+const ResetPassword = lazy(() => import("../pages/ResetPassword/ResetPassword"));
 const Layout = lazy(() => import("../components/Layout/Layout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Clients = lazy(() => import("../pages/Clients/Clients"));
@@ -17,6 +19,8 @@ function AppRoutes() {
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/" element={<Layout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="dashboard" element={<Dashboard />} />
