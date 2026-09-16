@@ -152,7 +152,7 @@ function Login() {
                                         Chamber Password
                                         <span className="form-label-required">*</span>
                                     </label>
-                                    <a href="#forgot-password" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 500 }}>Forgot password?</a>
+                                    <Link to="/forgot-password" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 500 }}>Forgot password?</Link>
                                 </div>
                                 <div className="input-with-icon">
                                     <span className="input-icon-left">
