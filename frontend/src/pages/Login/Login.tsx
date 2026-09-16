@@ -18,10 +18,17 @@ function Login() {
     });
 
     const onSubmit = async (data: LoginFormData) => {
-        toast.success("Chamber credentials verified. Opening docket...");
-        setTimeout(() => {
+        const authPromise = new Promise((resolve) => setTimeout(resolve, 1500));
+        
+        toast.promise(authPromise, {
+            loading: 'Authenticating chamber credentials...',
+            success: 'Access granted! Opening secure docket.',
+            error: 'Authentication failed.',
+        });
+
+        authPromise.then(() => {
             navigate("/");
-        }, 1200);
+        });
     };
 
     return (

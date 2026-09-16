@@ -41,10 +41,17 @@ function Register() {
   }, [passwordValue]);
 
   const onSubmit = (data: RegisterSchema) => {
-    toast.success("Advocate credentials verified. Initializing chamber docket...");
-    setTimeout(() => {
+    const verificationPromise = new Promise((resolve) => setTimeout(resolve, 1500));
+    
+    toast.promise(verificationPromise, {
+      loading: 'Verifying advocate credentials with Bar Council...',
+      success: 'Verification complete! Initializing chamber docket.',
+      error: 'Failed to verify credentials.',
+    });
+
+    verificationPromise.then(() => {
       navigate("/");
-    }, 1200);
+    });
   };
 
   return (
