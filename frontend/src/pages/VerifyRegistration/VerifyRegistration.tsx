@@ -84,7 +84,7 @@ function VerifyRegistration() {
                         <ThemeToggle />
                     </div>
 
-                    <div className="auth-card" style={{ maxWidth: "480px" }}>
+                    <div className="auth-card">
                         <div className="auth-form-header">
                             <h2 className="auth-form-title">Verify Registration</h2>
                             <p className="auth-form-subtitle">Enter OTP to verify your legal practice</p>
@@ -110,7 +110,6 @@ function VerifyRegistration() {
                                         placeholder="123456"
                                         maxLength={6}
                                         disabled={isSubmitting}
-                                        style={{ letterSpacing: '0.25em', fontWeight: 600 }}
                                     />
                                 </div>
                                 {errors.otp && (
@@ -120,7 +119,7 @@ function VerifyRegistration() {
                                 )}
                             </div>
 
-                            <button type="submit" className="btn btn-primary" style={{ width: "100%", marginTop: "var(--space-4)" }} disabled={isSubmitting}>
+                            <button type="submit" className="btn btn-primary" style={{ width: "100%", marginTop: "1rem" }} disabled={isSubmitting}>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                                     <polyline points="9 12 11 14 15 10"></polyline>
