@@ -8,4 +8,6 @@ export interface IUserRepository {
   create(user: User): Promise<User>;
 
   updatePassword(id: string, passwordHash: string): Promise<void>;
+
+  updateProfilePhoto(id: string, photoUrl: string): Promise<void>;
 }

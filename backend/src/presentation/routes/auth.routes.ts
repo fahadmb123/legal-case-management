@@ -16,4 +16,12 @@ authRoutes.post("/forgot-password", validate(forgotPasswordSchema), authControll
 authRoutes.post("/reset-password", validate(resetPasswordSchema), authController.resetPassword.bind(authController));
 authRoutes.get("/me", requireAuth, authController.me.bind(authController));
 
+import multer from "multer";
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+});
+
+authRoutes.post("/profile-photo", requireAuth, upload.single("photo"), authController.uploadProfilePhoto.bind(authController));
+
 export { authRoutes };

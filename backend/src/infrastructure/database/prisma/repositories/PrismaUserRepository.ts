@@ -36,11 +36,16 @@ export class PrismaUserRepository implements IUserRepository {
         await db.orm.public.User.where({ id }).update({ passwordHash });
     }
 
+    async updateProfilePhoto(id: string, profilePhoto: string): Promise<void> {
+        await db.orm.public.User.where({ id }).update({ profilePhoto });
+    }
+
     private toDomain(user: {
             id: string;
             name: string;
             email: string;
             passwordHash: string;
+            profilePhoto: string | null;
             createdAt: {
             epochMilliseconds: number;
         }}): User {
@@ -49,6 +54,7 @@ export class PrismaUserRepository implements IUserRepository {
                 name: user.name,
                 email: user.email,
                 passwordHash: user.passwordHash,
+                profilePhoto: user.profilePhoto,
                 createdAt: new Date(user.createdAt.epochMilliseconds),
             }
     }

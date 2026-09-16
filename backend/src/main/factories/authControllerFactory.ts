@@ -5,14 +5,17 @@ import { VerifyRegistrationUseCase } from "../../application/use-cases/auth/Veri
 import { ForgotPasswordUseCase } from "../../application/use-cases/auth/ForgotPasswordUseCase";
 import { ResetPasswordUseCase } from "../../application/use-cases/auth/ResetPasswordUseCase";
 import { GetCurrentUserUseCase } from "../../application/use-cases/auth/GetCurrentUserUseCase";
+import { UpdateProfilePhotoUseCase } from "../../application/use-cases/auth/UpdateProfilePhotoUseCase";
 import { PrismaUserRepository } from "../../infrastructure/database/prisma/repositories/PrismaUserRepository";
 import { BcryptPasswordService } from "../../infrastructure/services/BcryptPasswordService";
 import { JwtTokenService } from "../../infrastructure/services/JwtTokenService";
+import { CloudinaryService } from "../../infrastructure/services/CloudinaryService";
 
 export const makeAuthController = (): AuthController => {
   const userRepository = new PrismaUserRepository();
   const passwordService = new BcryptPasswordService();
   const tokenService = new JwtTokenService();
+  const cloudinaryService = new CloudinaryService();
 
   const registerUseCase = new RegisterUseCase(userRepository);
   const loginUseCase = new LoginUseCase(userRepository, passwordService, tokenService);
@@ -20,6 +23,7 @@ export const makeAuthController = (): AuthController => {
   const forgotPasswordUseCase = new ForgotPasswordUseCase(userRepository);
   const resetPasswordUseCase = new ResetPasswordUseCase(userRepository, passwordService);
   const getCurrentUserUseCase = new GetCurrentUserUseCase(userRepository);
+  const updateProfilePhotoUseCase = new UpdateProfilePhotoUseCase(userRepository);
 
   return new AuthController(
     registerUseCase, 
@@ -27,6 +31,8 @@ export const makeAuthController = (): AuthController => {
     verifyRegistrationUseCase,
     forgotPasswordUseCase,
     resetPasswordUseCase,
-    getCurrentUserUseCase
+    getCurrentUserUseCase,
+    updateProfilePhotoUseCase,
+    cloudinaryService
   );
 };

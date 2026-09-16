@@ -3,5 +3,6 @@ export interface User {
   name: string;
   email: string;
   passwordHash: string;
+  profilePhoto?: string | null;
   createdAt: Date;
 }

@@ -5,6 +5,8 @@ import type { VerifyRegistrationUseCase } from "../../application/use-cases/auth
 import type { ForgotPasswordUseCase } from "../../application/use-cases/auth/ForgotPasswordUseCase";
 import type { ResetPasswordUseCase } from "../../application/use-cases/auth/ResetPasswordUseCase";
 import type { GetCurrentUserUseCase } from "../../application/use-cases/auth/GetCurrentUserUseCase";
+import type { UpdateProfilePhotoUseCase } from "../../application/use-cases/auth/UpdateProfilePhotoUseCase";
+import type { CloudinaryService } from "../../infrastructure/services/CloudinaryService";
 import type { AuthenticatedRequest } from "../middlewares/AuthMiddleware";
 
 export class AuthController {
@@ -14,8 +16,31 @@ export class AuthController {
     private readonly verifyRegistrationUseCase: VerifyRegistrationUseCase,
     private readonly forgotPasswordUseCase: ForgotPasswordUseCase,
     private readonly resetPasswordUseCase: ResetPasswordUseCase,
-    private readonly getCurrentUserUseCase: GetCurrentUserUseCase
+    private readonly getCurrentUserUseCase: GetCurrentUserUseCase,
+    private readonly updateProfilePhotoUseCase: UpdateProfilePhotoUseCase,
+    private readonly cloudinaryService: CloudinaryService
   ) {}
+
+  async uploadProfilePhoto(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+      }
+      if (!req.file) {
+        res.status(400).json({ message: "No image file provided" });
+        return;
+      }
+      
+      const photoUrl = await this.cloudinaryService.uploadImage(req.file.buffer);
+      await this.updateProfilePhotoUseCase.execute(userId, photoUrl);
+
+      res.status(200).json({ message: "Profile photo updated", photoUrl });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async me(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {

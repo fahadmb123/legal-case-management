@@ -60,4 +60,15 @@ export class AuthApi {
     const response = await apiClient.post(API_ENDPOINTS.AUTH.VERIFY_REGISTRATION, payload);
     return response.data;
   }
+
+  static async uploadProfilePhoto(file: File): Promise<{ message: string, photoUrl: string }> {
+    const formData = new FormData();
+    formData.append("photo", file);
+    const response = await apiClient.post("/api/auth/profile-photo", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    return response.data;
+  }
 }
