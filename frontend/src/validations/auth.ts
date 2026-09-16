@@ -42,3 +42,28 @@ export const loginSchema = z.object({
 });
 
 export type LoginFormData = z.infer<typeof loginSchema>;
+
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Official email address is required")
+    .email("Please enter a valid email address"),
+});
+
+export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+
+export const resetPasswordSchema = z
+  .object({
+    otp: z.string().length(6, "Verification code must be exactly 6 digits"),
+    password: passwordRules.length
+      .and(passwordRules.uppercase)
+      .and(passwordRules.number)
+      .and(passwordRules.special),
+    confirmPassword: z.string().min(8, "Confirm Password is required"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;

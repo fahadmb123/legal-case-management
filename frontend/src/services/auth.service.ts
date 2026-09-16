@@ -1,4 +1,4 @@
-import type { RegisterSchema, LoginFormData } from "../validations/auth";
+import type { RegisterSchema, LoginFormData, ForgotPasswordFormData, ResetPasswordFormData } from "../validations/auth";
 import { AuthApi, type AuthResponse } from "../api/auth.api";
 
 export class AuthService {
@@ -25,5 +25,16 @@ export class AuthService {
 
   static async logout(): Promise<void> {
     await AuthApi.logout();
+  }
+
+  static async forgotPassword(data: ForgotPasswordFormData): Promise<{ message: string }> {
+    return await AuthApi.forgotPassword(data.email);
+  }
+
+  static async resetPassword(data: ResetPasswordFormData): Promise<{ message: string }> {
+    return await AuthApi.resetPassword({
+      otp: data.otp,
+      password: data.password,
+    });
   }
 }

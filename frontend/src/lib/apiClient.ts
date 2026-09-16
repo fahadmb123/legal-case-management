@@ -17,7 +17,7 @@ apiClient.interceptors.response.use(
       console.warn("Unauthorized API call detected. Token may be expired.");
     }
     
-    const errorMessage = error.response?.data?.error || error.message || "An unexpected error occurred.";
+    const errorMessage = error.response?.data?.message || error.message || "An unexpected error occurred.";
     
     return Promise.reject(new Error(errorMessage));
   }
