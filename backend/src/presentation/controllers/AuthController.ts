@@ -4,6 +4,8 @@ import type { ILoginUseCase } from "../../domain/use-cases/ILoginUseCase";
 import type { VerifyRegistrationUseCase } from "../../application/use-cases/auth/VerifyRegistrationUseCase";
 import type { ForgotPasswordUseCase } from "../../application/use-cases/auth/ForgotPasswordUseCase";
 import type { ResetPasswordUseCase } from "../../application/use-cases/auth/ResetPasswordUseCase";
+import type { GetCurrentUserUseCase } from "../../application/use-cases/auth/GetCurrentUserUseCase";
+import type { AuthenticatedRequest } from "../middlewares/AuthMiddleware";
 
 export class AuthController {
   constructor(
@@ -11,8 +13,23 @@ export class AuthController {
     private readonly loginUseCase: ILoginUseCase,
     private readonly verifyRegistrationUseCase: VerifyRegistrationUseCase,
     private readonly forgotPasswordUseCase: ForgotPasswordUseCase,
-    private readonly resetPasswordUseCase: ResetPasswordUseCase
+    private readonly resetPasswordUseCase: ResetPasswordUseCase,
+    private readonly getCurrentUserUseCase: GetCurrentUserUseCase
   ) {}
+
+  async me(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+      }
+      const user = await this.getCurrentUserUseCase.execute(userId);
+      res.status(200).json({ user });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {

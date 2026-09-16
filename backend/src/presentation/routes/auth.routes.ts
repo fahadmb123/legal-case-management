@@ -2,6 +2,7 @@ import { Router } from "express";
 import { makeAuthController } from "../../main/factories/authControllerFactory";
 import { validate } from "../middlewares/ValidationMiddleware";
 import { registerSchema, loginSchema, verifyRegistrationSchema, forgotPasswordSchema, resetPasswordSchema } from "../validators/AuthValidators";
+import { requireAuth } from "../middlewares/AuthMiddleware";
 
 const authRoutes = Router();
 
@@ -13,5 +14,6 @@ authRoutes.post("/login", validate(loginSchema), authController.login.bind(authC
 authRoutes.post("/logout", authController.logout.bind(authController));
 authRoutes.post("/forgot-password", validate(forgotPasswordSchema), authController.forgotPassword.bind(authController));
 authRoutes.post("/reset-password", validate(resetPasswordSchema), authController.resetPassword.bind(authController));
+authRoutes.get("/me", requireAuth, authController.me.bind(authController));
 
 export { authRoutes };
