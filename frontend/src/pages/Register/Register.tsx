@@ -1,47 +1,50 @@
 import { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, type RegisterSchema } from "../../validations/auth";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Register.css";
 
 function Register() {
   const navigate = useNavigate();
 
-  // Form State
-  const [fullname, setFullname] = useState("Adv. Rajesh Kumar Sharma");
-  const [email, setEmail] = useState("sharma@lawchambers.org");
-  const [phone, setPhone] = useState("+91 98765 43210");
-  const [barNumber, setBarNumber] = useState("D/1482/2014");
-  const [password, setPassword] = useState("JudiciaryPass@2026");
-  const [confirmPassword, setConfirmPassword] = useState("JudiciaryPass@2026");
-  const [agreedToTerms, setAgreedToTerms] = useState(true);
+  // Form Setup
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      fullname: "Adv. Rajesh Kumar Sharma",
+      email: "sharma@lawchambers.org",
+      phone: "+91 98765 43210",
+      barNumber: "D/1482/2014",
+      password: "JudiciaryPass@2026",
+      confirmPassword: "JudiciaryPass@2026",
+      agreedToTerms: true,
+    }
+  });
+
+  const passwordValue = watch("password");
 
   // Toast
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Password strength calculation
   const passwordStrength = useMemo(() => {
-    if (!password) return 0;
+    if (!passwordValue) return 0;
     let score = 0;
-    if (password.length >= 8) score += 1;
-    if (/[A-Z]/.test(password)) score += 1;
-    if (/[0-9]/.test(password)) score += 1;
-    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+    if (passwordValue.length >= 8) score += 1;
+    if (/[A-Z]/.test(passwordValue)) score += 1;
+    if (/[0-9]/.test(passwordValue)) score += 1;
+    if (/[^A-Za-z0-9]/.test(passwordValue)) score += 1;
     return score;
-  }, [password]);
+  }, [passwordValue]);
 
-  const passwordsMatch = password && confirmPassword && password === confirmPassword;
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!passwordsMatch) {
-      setToastMessage("Passwords do not match. Please verify.");
-      return;
-    }
-    if (!agreedToTerms) {
-      setToastMessage("Please affirm the Advocate Code of Conduct.");
-      return;
-    }
-
+  const onSubmit = (data: RegisterSchema) => {
     setToastMessage("Advocate credentials verified. Initializing chamber docket...");
     setTimeout(() => {
       navigate("/");
@@ -122,7 +125,7 @@ function Register() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               {/* Full Name */}
               <div className="form-group">
                 <label htmlFor="advocate-name" className="form-label">
@@ -139,14 +142,12 @@ function Register() {
                   <input
                     type="text"
                     id="advocate-name"
-                    name="fullname"
                     className="form-input"
                     placeholder="e.g. Adv. Rajesh Kumar Sharma"
-                    value={fullname}
-                    onChange={(e) => setFullname(e.target.value)}
-                    required
+                    {...register("fullname")}
                   />
                 </div>
+                {errors.fullname && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.fullname.message}</span>}
               </div>
 
               {/* Email & Phone in 2 Columns */}
@@ -159,13 +160,11 @@ function Register() {
                   <input
                     type="email"
                     id="advocate-email"
-                    name="email"
                     className="form-input"
                     placeholder="sharma@lawchambers.org"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    {...register("email")}
                   />
+                  {errors.email && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.email.message}</span>}
                 </div>
 
                 <div className="form-group">
@@ -176,13 +175,11 @@ function Register() {
                   <input
                     type="tel"
                     id="advocate-phone"
-                    name="phone"
                     className="form-input"
                     placeholder="+91 98765 43210"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
+                    {...register("phone")}
                   />
+                  {errors.phone && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.phone.message}</span>}
                 </div>
               </div>
 
@@ -202,15 +199,16 @@ function Register() {
                   <input
                     type="text"
                     id="bar-reg"
-                    name="barNumber"
                     className="form-input font-mono"
                     placeholder="e.g. D/1482/2014"
-                    value={barNumber}
-                    onChange={(e) => setBarNumber(e.target.value)}
-                    required
+                    {...register("barNumber")}
                   />
                 </div>
-                <span className="form-hint">Format: State/Roll Number/Year of Enrollment</span>
+                {errors.barNumber ? (
+                  <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.barNumber.message}</span>
+                ) : (
+                  <span className="form-hint">Format: State/Roll Number/Year of Enrollment</span>
+                )}
               </div>
 
               {/* Passwords in 2 Columns */}
@@ -223,13 +221,11 @@ function Register() {
                   <input
                     type="password"
                     id="reg-password"
-                    name="password"
                     className="form-input"
                     placeholder="Minimum 8 characters"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+                    {...register("password")}
                   />
+                  {errors.password && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px", display: "block" }}>{errors.password.message}</span>}
                   <div className="password-strength-indicator">
                     <div className="strength-meter">
                       <div className={`strength-segment ${passwordStrength >= 1 ? "is-active" : ""}`}></div>
@@ -254,22 +250,15 @@ function Register() {
                   <input
                     type="password"
                     id="reg-confirm"
-                    name="confirmPassword"
                     className="form-input"
                     placeholder="Re-enter password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
+                    {...register("confirmPassword")}
                   />
-                  {passwordsMatch ? (
-                    <span className="form-hint text-success" style={{ fontSize: "var(--font-size-2xs)" }}>
-                      &check; Passwords match
+                  {errors.confirmPassword && (
+                    <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>
+                      &times; {errors.confirmPassword.message}
                     </span>
-                  ) : confirmPassword ? (
-                    <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)" }}>
-                      &times; Passwords do not match
-                    </span>
-                  ) : null}
+                  )}
                 </div>
               </div>
 
@@ -279,10 +268,8 @@ function Register() {
                   <input
                     type="checkbox"
                     className="form-check-input"
-                    checked={agreedToTerms}
-                    onChange={(e) => setAgreedToTerms(e.target.checked)}
-                    required
                     style={{ marginTop: "3px" }}
+                    {...register("agreedToTerms")}
                   />
                   <span style={{ fontSize: "var(--font-size-xs)", lineHeight: 1.4, color: "var(--color-text-secondary)" }}>
                     I affirm that I am a licensed advocate registered with the Bar Council, and agree to the{" "}
@@ -290,6 +277,7 @@ function Register() {
                     <span className="text-primary" style={{ fontWeight: 600 }}>Client Privilege Data Agreement</span>.
                   </span>
                 </label>
+                {errors.agreedToTerms && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px", display: "block" }}>{errors.agreedToTerms.message}</span>}
               </div>
 
               {/* Submit Button */}
