@@ -11,8 +11,6 @@ export const registerSchema = z
   .object({
     fullname: z.string().min(2, "Advocate Name is required"),
     email: z.string().email("Invalid official email address"),
-    phone: z.string().min(10, "Valid phone number is required"),
-    barNumber: z.string().min(3, "Bar council registration number is required"),
     password: passwordRules.length
       .and(passwordRules.uppercase)
       .and(passwordRules.number)

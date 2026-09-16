@@ -21,8 +21,6 @@ function Register() {
     defaultValues: {
       fullname: "Adv. Rajesh Kumar Sharma",
       email: "sharma@lawchambers.org",
-      phone: "+91 98765 43210",
-      barNumber: "D/1482/2014",
       password: "JudiciaryPass@2026",
       confirmPassword: "JudiciaryPass@2026",
       agreedToTerms: true,
@@ -142,12 +140,18 @@ function Register() {
                 {errors.fullname && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.fullname.message}</span>}
               </div>
 
-              <div className="form-row-2col">
-                <div className="form-group">
-                  <label htmlFor="advocate-email" className="form-label">
-                    Official Email
-                    <span className="form-label-required">*</span>
-                  </label>
+              <div className="form-group">
+                <label htmlFor="advocate-email" className="form-label">
+                  Official Email
+                  <span className="form-label-required">*</span>
+                </label>
+                <div className="input-with-icon">
+                  <span className="input-icon-left">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                  </span>
                   <input
                     type="email"
                     id="advocate-email"
@@ -155,51 +159,10 @@ function Register() {
                     placeholder="sharma@lawchambers.org"
                     {...register("email")}
                   />
-                  {errors.email && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.email.message}</span>}
                 </div>
-
-                <div className="form-group">
-                  <label htmlFor="advocate-phone" className="form-label">
-                    Mobile / Chamber Phone
-                    <span className="form-label-required">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    id="advocate-phone"
-                    className="form-input"
-                    placeholder="+91 98765 43210"
-                    {...register("phone")}
-                  />
-                  {errors.phone && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.phone.message}</span>}
-                </div>
+                {errors.email && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.email.message}</span>}
               </div>
 
-              <div className="form-group">
-                <label htmlFor="bar-reg" className="form-label">
-                  Bar Council Registration Number
-                  <span className="form-label-required">*</span>
-                </label>
-                <div className="input-with-icon">
-                  <span className="input-icon-left">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-                      <path d="m9 12 2 2 4-4"></path>
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    id="bar-reg"
-                    className="form-input font-mono"
-                    placeholder="e.g. D/1482/2014"
-                    {...register("barNumber")}
-                  />
-                </div>
-                {errors.barNumber ? (
-                  <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.barNumber.message}</span>
-                ) : (
-                  <span className="form-hint">Format: State/Roll Number/Year of Enrollment</span>
-                )}
-              </div>
 
               <div className="form-row-2col">
                 <div className="form-group">
