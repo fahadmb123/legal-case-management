@@ -1,3 +1,4 @@
+import { AppError } from "../../../domain/errors/AppError";
 import type { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import type { User } from "../../../domain/entities/User";
 import type { IRegisterUseCase } from "../../../domain/use-cases/IRegisterUseCase";
@@ -16,7 +17,7 @@ export class RegisterUseCase implements IRegisterUseCase {
 
         const existingUser = await this.userRepository.findByEmail(email)
 
-        if (existingUser) throw new Error("User with this email already exists")
+        if (existingUser) throw new AppError("User with this email already exists", 409)
 
         const passwordHash = await this.passwordHasher.hash(password)
 

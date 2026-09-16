@@ -1,3 +1,4 @@
+import { AppError } from "../../../domain/errors/AppError";
 import type { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import type { ILoginUseCase, LoginResult } from "../../../domain/use-cases/ILoginUseCase";
 
@@ -19,7 +20,7 @@ export class LoginUseCase implements ILoginUseCase {
     async execute(email: string, password: string) {
         const user = await this.userRepository.findByEmail(email)
 
-        if (!user) throw new Error("Invalid email or password")
+        if (!user) throw new AppError("Invalid email or password", 401)
         
 
         const isPasswordValid = await this.passwordVerifier.verify(
@@ -27,7 +28,7 @@ export class LoginUseCase implements ILoginUseCase {
             user.passwordHash
         )
 
-        if (!isPasswordValid) throw new Error("Invalid email or password")
+        if (!isPasswordValid) throw new AppError("Invalid email or password", 401)
 
         const token = this.tokenService.generate(user.id)
 
