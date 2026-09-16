@@ -7,7 +7,6 @@ export interface AuthResponse {
     name: string;
     email: string;
   };
-  token: string;
 }
 
 export interface RegisterPayload {
@@ -30,5 +29,9 @@ export class AuthApi {
   static async login(payload: LoginPayload): Promise<AuthResponse> {
     const response = await apiClient.post<AuthResponse>(API_ENDPOINTS.AUTH.LOGIN, payload);
     return response.data;
+  }
+
+  static async logout(): Promise<void> {
+    await apiClient.post(API_ENDPOINTS.AUTH.LOGOUT);
   }
 }

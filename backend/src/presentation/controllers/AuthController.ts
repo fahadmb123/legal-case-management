@@ -21,7 +21,28 @@ export class AuthController {
       const { email, password } = req.body;
 
       const result = await this.loginUseCase.execute(email, password);
-      res.status(200).json(result);
+      
+      res.cookie("token", result.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
+      });
+
+      res.status(200).json({ user: result.user });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async logout(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+      });
+      res.status(200).json({ message: "Logged out successfully" });
     } catch (error) {
       next(error);
     }

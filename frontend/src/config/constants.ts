@@ -6,9 +6,6 @@ export const API_ENDPOINTS = {
   AUTH: {
     REGISTER: "/auth/register",
     LOGIN: "/auth/login",
+    LOGOUT: "/auth/logout",
   },
-};
-
-export const STORAGE_KEYS = {
-  AUTH_TOKEN: "token",
 };

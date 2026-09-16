@@ -1,4 +1,3 @@
-import { STORAGE_KEYS } from "../config/constants";
 import type { RegisterSchema, LoginFormData } from "../validations/auth";
 import { AuthApi, type AuthResponse } from "../api/auth.api";
 
@@ -11,11 +10,6 @@ export class AuthService {
     };
 
     const response = await AuthApi.register(payload);
-    
-    if (response.token) {
-      localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.token);
-    }
-    
     return response;
   }
 
@@ -26,15 +20,10 @@ export class AuthService {
     };
 
     const response = await AuthApi.login(payload);
-
-    if (response.token) {
-      localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.token);
-    }
-
     return response;
   }
 
-  static logout(): void {
-    localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+  static async logout(): Promise<void> {
+    await AuthApi.logout();
   }
 }
