@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Login.css";
 import { loginSchema, type LoginFormData } from "../../validations/auth";
+import { AuthService } from "../../services/auth.service";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -18,17 +19,17 @@ function Login() {
     });
 
     const onSubmit = async (data: LoginFormData) => {
-        const authPromise = new Promise((resolve) => setTimeout(resolve, 1500));
+        const authPromise = AuthService.login(data);
         
         toast.promise(authPromise, {
             loading: 'Authenticating chamber credentials...',
             success: 'Access granted! Opening secure docket.',
-            error: 'Authentication failed.',
+            error: (err) => err.message || 'Authentication failed.',
         });
 
         authPromise.then(() => {
-            navigate("/");
-        });
+            setTimeout(() => navigate("/"), 1200);
+        }).catch(() => {});
     };
 
     return (

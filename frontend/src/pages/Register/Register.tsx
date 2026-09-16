@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, passwordRules, type RegisterSchema } from "../../validations/auth";
+import { AuthService } from "../../services/auth.service";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Register.css";
 
@@ -41,16 +42,18 @@ function Register() {
   }, [passwordValue]);
 
   const onSubmit = (data: RegisterSchema) => {
-    const verificationPromise = new Promise((resolve) => setTimeout(resolve, 1500));
+    const verificationPromise = AuthService.register(data);
     
     toast.promise(verificationPromise, {
       loading: 'Verifying advocate credentials with Bar Council...',
       success: 'Verification complete! Initializing chamber docket.',
-      error: 'Failed to verify credentials.',
+      error: (err) => err.message || 'Failed to verify credentials.',
     });
 
     verificationPromise.then(() => {
-      navigate("/");
+      setTimeout(() => navigate("/"), 1200);
+    }).catch(() => {
+      // Catch prevents unhandled promise rejection error in console
     });
   };
 
