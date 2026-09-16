@@ -23,7 +23,7 @@ export const makeAuthController = (): AuthController => {
   const forgotPasswordUseCase = new ForgotPasswordUseCase(userRepository);
   const resetPasswordUseCase = new ResetPasswordUseCase(userRepository, passwordService);
   const getCurrentUserUseCase = new GetCurrentUserUseCase(userRepository);
-  const updateProfilePhotoUseCase = new UpdateProfilePhotoUseCase(userRepository);
+  const updateProfilePhotoUseCase = new UpdateProfilePhotoUseCase(userRepository, cloudinaryService);
 
   return new AuthController(
     registerUseCase, 

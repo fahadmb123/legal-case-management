@@ -60,6 +60,27 @@ function Settings() {
     }
   };
 
+  const handleDeletePhoto = async () => {
+    if (!user?.profilePhoto) return;
+    
+    if (window.confirm("Are you sure you want to delete your profile photo?")) {
+      try {
+        setIsUploadingPhoto(true);
+        await AuthApi.deleteProfilePhoto();
+        updateUser({ profilePhoto: null });
+        showToast("Profile photo deleted successfully!");
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+      } catch (err) {
+        console.error(err);
+        showToast("Failed to delete photo.");
+      } finally {
+        setIsUploadingPhoto(false);
+      }
+    }
+  };
+
   const handleProfileSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     showToast("Advocate & Chamber profile credentials successfully updated");
@@ -209,43 +230,55 @@ function Settings() {
                   Official legal identifiers displayed on judicial notices, vakalatnamas, and client representations.
                 </p>
 
-                <div className="profile-avatar-section" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', marginBottom: 'var(--space-6)' }}>
+                <div className="profile-avatar-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-4)', marginBottom: 'var(--space-6)', textAlign: 'center' }}>
                   <div 
                     className="avatar-preview" 
                     style={{ 
-                      width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'var(--color-bg-surface-subtle)', 
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px solid var(--color-border-default)',
+                      width: '100px', height: '100px', borderRadius: '50%', backgroundColor: 'var(--color-bg-surface-subtle)', 
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '2px solid var(--color-border-default)',
                       position: 'relative'
                     }}
                   >
                     {isUploadingPhoto ? (
-                      <div className="spinner" style={{ width: '24px', height: '24px', border: '3px solid var(--color-primary-subtle)', borderTopColor: 'var(--color-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+                      <div className="spinner" style={{ width: '28px', height: '28px', border: '3px solid var(--color-primary-subtle)', borderTopColor: 'var(--color-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
                     ) : user?.profilePhoto ? (
                       <img src={user.profilePhoto} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-text-muted)' }}>
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-text-muted)' }}>
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                       </svg>
                     )}
                   </div>
-                  <div className="avatar-actions">
-                    <input 
-                      type="file" 
-                      accept="image/*" 
-                      ref={fileInputRef} 
-                      style={{ display: 'none' }} 
-                      onChange={handlePhotoUpload} 
-                    />
-                    <button 
-                      type="button" 
-                      className="btn btn-secondary btn-sm"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={isUploadingPhoto}
-                    >
-                      {isUploadingPhoto ? 'Uploading...' : 'Change Photo'}
-                    </button>
-                    <p className="form-hint" style={{ marginTop: '8px' }}>JPG, GIF or PNG. Max size of 5MB.</p>
+                  <div className="avatar-actions" style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        ref={fileInputRef} 
+                        style={{ display: 'none' }} 
+                        onChange={handlePhotoUpload} 
+                      />
+                      <button 
+                        type="button" 
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isUploadingPhoto}
+                      >
+                        {isUploadingPhoto ? 'Uploading...' : 'Change Photo'}
+                      </button>
+                      {user?.profilePhoto && (
+                        <button 
+                          type="button" 
+                          className="btn btn-danger btn-sm"
+                          onClick={handleDeletePhoto}
+                          disabled={isUploadingPhoto}
+                        >
+                          Delete Photo
+                        </button>
+                      )}
+                    </div>
+                    <p className="form-hint" style={{ margin: 0 }}>JPG, GIF or PNG. Max size of 5MB.</p>
                   </div>
                 </div>
 

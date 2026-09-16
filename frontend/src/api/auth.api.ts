@@ -1,5 +1,6 @@
 import { apiClient } from "../lib/apiClient";
 import { API_ENDPOINTS } from "../config/constants";
+import axios from "axios";
 
 export interface AuthResponse {
   user: {
@@ -64,11 +65,31 @@ export class AuthApi {
   static async uploadProfilePhoto(file: File): Promise<{ message: string, photoUrl: string }> {
     const formData = new FormData();
     formData.append("photo", file);
-    const response = await apiClient.post("/api/auth/profile-photo", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
+    
+    const url = `${apiClient.defaults.baseURL}/auth/profile-photo`;
+    
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+      // VERY IMPORTANT: Do NOT set Content-Type header. 
+      // Fetch will automatically set it to multipart/form-data with the correct boundary!
+      credentials: "include" // Equivalent to withCredentials: true
     });
+    
+    if (!response.ok) {
+      let errorMsg = "Upload failed";
+      try {
+        const errorData = await response.json();
+        errorMsg = errorData.message || errorMsg;
+      } catch (e) {}
+      throw new Error(errorMsg);
+    }
+    
+    return await response.json();
+  }
+
+  static async deleteProfilePhoto(): Promise<{ message: string }> {
+    const response = await apiClient.delete("/auth/profile-photo");
     return response.data;
   }
 }

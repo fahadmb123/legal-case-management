@@ -23,5 +23,6 @@ const upload = multer({
 });
 
 authRoutes.post("/profile-photo", requireAuth, upload.single("photo"), authController.uploadProfilePhoto.bind(authController));
+authRoutes.delete("/profile-photo", requireAuth, authController.deleteProfilePhoto.bind(authController));
 
 export { authRoutes };

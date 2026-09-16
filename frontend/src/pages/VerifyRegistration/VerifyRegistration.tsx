@@ -92,26 +92,116 @@ function VerifyRegistration() {
 
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="form-group">
-                                <label className="form-label" htmlFor="verify-otp">
+                                <label className="form-label" htmlFor="verify-otp-0">
                                     6-Digit Verification Code
                                     <span className="form-label-required">*</span>
                                 </label>
-                                <div className="input-with-icon">
-                                    <span className="input-icon-left">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
-                                        </svg>
-                                    </span>
-                                    <input
-                                        {...register("otp")}
-                                        type="text"
-                                        id="verify-otp"
-                                        className={`form-input ${errors.otp ? "input-error" : ""}`}
-                                        placeholder="123456"
-                                        maxLength={6}
-                                        disabled={isSubmitting}
-                                    />
+                                <div className="otp-input-container" style={{ display: 'flex', gap: '8px', justifyContent: 'space-between', margin: '8px 0' }}>
+                                    {[0, 1, 2, 3, 4, 5].map((index) => (
+                                        <input
+                                            key={index}
+                                            id={`verify-otp-${index}`}
+                                            type="text"
+                                            maxLength={1}
+                                            className={`form-input otp-box ${errors.otp ? "input-error" : ""}`}
+                                            style={{ 
+                                                width: '45px', 
+                                                height: '56px', 
+                                                textAlign: 'center', 
+                                                fontSize: '1.5rem', 
+                                                fontWeight: 'bold',
+                                                padding: '0',
+                                                borderRadius: '8px'
+                                            }}
+                                            disabled={isSubmitting}
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                // Handle paste
+                                                if (val.length > 1) {
+                                                    const pastedData = val.replace(/\D/g, '').slice(0, 6);
+                                                    if (pastedData) {
+                                                        const currentOtp = [0,1,2,3,4,5].map(i => {
+                                                            const el = document.getElementById(`verify-otp-${i}`) as HTMLInputElement;
+                                                            if (el) {
+                                                                const char = pastedData[i] || '';
+                                                                el.value = char;
+                                                                return char;
+                                                            }
+                                                            return '';
+                                                        }).join('');
+                                                        
+                                                        // Update the hidden form field
+                                                        const hiddenInput = document.getElementById('hidden-otp-input') as HTMLInputElement;
+                                                        if (hiddenInput) {
+                                                            hiddenInput.value = currentOtp;
+                                                            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+                                                        }
+                                                        
+                                                        // Focus last filled box
+                                                        const focusIndex = Math.min(pastedData.length, 5);
+                                                        document.getElementById(`verify-otp-${focusIndex}`)?.focus();
+                                                    }
+                                                    return;
+                                                }
+                                                
+                                                // Handle single character typed
+                                                if (val && !/^\d$/.test(val)) {
+                                                    e.target.value = "";
+                                                    return;
+                                                }
+                                                
+                                                if (val) {
+                                                    // Move to next input
+                                                    if (index < 5) {
+                                                        const nextInput = document.getElementById(`verify-otp-${index + 1}`) as HTMLInputElement;
+                                                        if (nextInput) nextInput.focus();
+                                                    }
+                                                }
+                                                
+                                                // Update hidden form field
+                                                const currentOtp = [0,1,2,3,4,5].map(i => {
+                                                    const el = document.getElementById(`verify-otp-${i}`) as HTMLInputElement;
+                                                    return el ? el.value : '';
+                                                }).join('');
+                                                
+                                                const hiddenInput = document.getElementById('hidden-otp-input') as HTMLInputElement;
+                                                if (hiddenInput) {
+                                                    hiddenInput.value = currentOtp;
+                                                    hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+                                                }
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Backspace") {
+                                                    const target = e.target as HTMLInputElement;
+                                                    if (!target.value && index > 0) {
+                                                        // Move focus to previous and clear it
+                                                        const prevInput = document.getElementById(`verify-otp-${index - 1}`) as HTMLInputElement;
+                                                        if (prevInput) {
+                                                            prevInput.value = "";
+                                                            prevInput.focus();
+                                                            // Trigger update
+                                                            const currentOtp = [0,1,2,3,4,5].map(i => {
+                                                                const el = document.getElementById(`verify-otp-${i}`) as HTMLInputElement;
+                                                                return el ? el.value : '';
+                                                            }).join('');
+                                                            const hiddenInput = document.getElementById('hidden-otp-input') as HTMLInputElement;
+                                                            if (hiddenInput) {
+                                                                hiddenInput.value = currentOtp;
+                                                                hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }}
+                                        />
+                                    ))}
                                 </div>
+                                {/* Hidden input bound to react-hook-form */}
+                                <input
+                                    {...register("otp")}
+                                    type="hidden"
+                                    id="hidden-otp-input"
+                                />
                                 {errors.otp && (
                                     <span className="field-error-message" style={{ color: "var(--color-danger, #ef4444)", fontSize: "var(--font-size-xs, 0.75rem)", marginTop: "4px", display: "block" }}>
                                         {errors.otp.message}

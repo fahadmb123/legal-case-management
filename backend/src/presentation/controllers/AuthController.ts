@@ -42,6 +42,21 @@ export class AuthController {
     }
   }
 
+  async deleteProfilePhoto(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+      }
+      
+      await this.updateProfilePhotoUseCase.execute(userId, null);
+      res.status(200).json({ message: "Profile photo deleted successfully" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async me(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       const userId = req.userId;
