@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Login.css";
-import { loginSchema, type LoginFormData } from "./login.schema";
+import { loginSchema, type LoginFormData } from "../../validations/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
