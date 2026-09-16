@@ -8,11 +8,6 @@ export class AuthController {
   async register(req: Request, res: Response): Promise<void> {
     try {
       const { name, email, password } = req.body;
-      
-      if (!name || !email || !password) {
-        res.status(400).json({ error: "Missing required fields" });
-        return;
-      }
 
       const user = await this.registerUseCase.execute(name, email, password);
       res.status(201).json(user);
@@ -28,11 +23,6 @@ export class AuthController {
   async login(req: Request, res: Response): Promise<void> {
     try {
       const { email, password } = req.body;
-
-      if (!email || !password) {
-        res.status(400).json({ error: "Missing required fields" });
-        return;
-      }
 
       const result = await this.loginUseCase.execute(email, password);
       res.status(200).json(result);
