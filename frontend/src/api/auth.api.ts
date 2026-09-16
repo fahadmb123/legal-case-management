@@ -25,6 +25,11 @@ export interface ResetPasswordPayload {
   password: string;
 }
 
+export interface VerifyRegistrationPayload {
+  email: string;
+  otp: string;
+}
+
 export class AuthApi {
   static async register(payload: RegisterPayload): Promise<AuthResponse> {
     const response = await apiClient.post<AuthResponse>(API_ENDPOINTS.AUTH.REGISTER, payload);
@@ -49,6 +54,12 @@ export class AuthApi {
   static async resetPassword(payload: ResetPasswordPayload): Promise<{ message: string }> {
     // Note: Backend might not be implemented yet.
     const response = await apiClient.post(API_ENDPOINTS.AUTH.RESET_PASSWORD, payload);
+    return response.data;
+  }
+
+  static async verifyRegistration(payload: VerifyRegistrationPayload): Promise<{ message: string }> {
+    // Note: Backend might not be implemented yet.
+    const response = await apiClient.post(API_ENDPOINTS.AUTH.VERIFY_REGISTRATION, payload);
     return response.data;
   }
 }

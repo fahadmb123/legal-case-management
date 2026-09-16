@@ -65,3 +65,9 @@ export const resetPasswordSchema = z
   });
 
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
+export const verifyRegistrationSchema = z.object({
+  otp: z.string().length(6, "Verification code must be exactly 6 digits"),
+});
+
+export type VerifyRegistrationFormData = z.infer<typeof verifyRegistrationSchema>;

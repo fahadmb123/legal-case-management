@@ -1,4 +1,4 @@
-import type { RegisterSchema, LoginFormData, ForgotPasswordFormData, ResetPasswordFormData } from "../validations/auth";
+import type { RegisterSchema, LoginFormData, ForgotPasswordFormData, ResetPasswordFormData, VerifyRegistrationFormData } from "../validations/auth";
 import { AuthApi, type AuthResponse } from "../api/auth.api";
 
 export class AuthService {
@@ -35,6 +35,13 @@ export class AuthService {
     return await AuthApi.resetPassword({
       otp: data.otp,
       password: data.password,
+    });
+  }
+
+  static async verifyRegistration(data: VerifyRegistrationFormData & { email: string }): Promise<{ message: string }> {
+    return await AuthApi.verifyRegistration({
+      email: data.email,
+      otp: data.otp,
     });
   }
 }

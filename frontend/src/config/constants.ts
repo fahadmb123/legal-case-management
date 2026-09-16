@@ -4,8 +4,9 @@ export const ENV = {
 
 export const API_ENDPOINTS = {
   AUTH: {
-    REGISTER: "/auth/register",
-    LOGIN: "/auth/login",
+    REGISTER: '/auth/register',
+    VERIFY_REGISTRATION: '/auth/verify-registration',
+    LOGIN: '/auth/login',
     LOGOUT: "/auth/logout",
     FORGOT_PASSWORD: "/auth/forgot-password",
     RESET_PASSWORD: "/auth/reset-password",

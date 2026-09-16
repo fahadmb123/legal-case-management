@@ -4,6 +4,7 @@ const Login = lazy(() => import("../pages/Login/Login"));
 const Register = lazy(() => import("../pages/Register/Register"));
 const ForgotPassword = lazy(() => import("../pages/ForgotPassword/ForgotPassword"));
 const ResetPassword = lazy(() => import("../pages/ResetPassword/ResetPassword"));
+const VerifyRegistration = lazy(() => import("../pages/VerifyRegistration/VerifyRegistration"));
 const Layout = lazy(() => import("../components/Layout/Layout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Clients = lazy(() => import("../pages/Clients/Clients"));
@@ -19,6 +20,7 @@ function AppRoutes() {
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/verify-registration" element={<VerifyRegistration />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/" element={<Layout />}>
