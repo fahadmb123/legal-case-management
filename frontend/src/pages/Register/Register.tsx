@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, passwordRules, type RegisterSchema } from "../../validations/auth";
@@ -29,8 +30,6 @@ function Register() {
 
   const passwordValue = watch("password");
 
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
   const passwordStrength = useMemo(() => {
     if (!passwordValue) return 0;
     let score = 0;
@@ -42,7 +41,7 @@ function Register() {
   }, [passwordValue]);
 
   const onSubmit = (data: RegisterSchema) => {
-    setToastMessage("Advocate credentials verified. Initializing chamber docket...");
+    toast.success("Advocate credentials verified. Initializing chamber docket...");
     setTimeout(() => {
       navigate("/");
     }, 1200);
@@ -50,15 +49,6 @@ function Register() {
 
   return (
     <div className="register-layout">
-      {toastMessage && (
-        <div className="register-toast" role="alert">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span>{toastMessage}</span>
-        </div>
-      )}
-
       <div className="register-grid">
         <aside className="register-brand-side">
           <div className="register-brand-header">

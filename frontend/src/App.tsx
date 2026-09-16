@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import AppRoutes from './routes/AppRoutes'
 import { BrowserRouter } from 'react-router-dom'
 import LoadingScreen from './components/Loading/LoadingScreen'
-
+import { Toaster } from 'sonner'
 
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
           <AppRoutes/>
         </BrowserRouter>
     </Suspense>
+    <Toaster richColors position="top-right" closeButton />
     </>
   )
 }

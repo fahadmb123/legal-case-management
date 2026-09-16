@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Login.css";
 import { loginSchema, type LoginFormData } from "../../validations/auth";
@@ -17,8 +18,10 @@ function Login() {
     });
 
     const onSubmit = async (data: LoginFormData) => {
-        console.log(data)
-        navigate("/")
+        toast.success("Chamber credentials verified. Opening docket...");
+        setTimeout(() => {
+            navigate("/");
+        }, 1200);
     };
 
     return (
