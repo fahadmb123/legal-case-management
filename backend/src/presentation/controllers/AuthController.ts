@@ -1,15 +1,30 @@
 import type { Request, Response, NextFunction } from "express";
 import type { IRegisterUseCase } from "../../domain/use-cases/IRegisterUseCase";
 import type { ILoginUseCase } from "../../domain/use-cases/ILoginUseCase";
+import type { VerifyRegistrationUseCase } from "../../application/use-cases/auth/VerifyRegistrationUseCase";
 
 export class AuthController {
-  constructor(private readonly registerUseCase: IRegisterUseCase,private readonly loginUseCase: ILoginUseCase) {}
+  constructor(
+    private readonly registerUseCase: IRegisterUseCase,
+    private readonly loginUseCase: ILoginUseCase,
+    private readonly verifyRegistrationUseCase: VerifyRegistrationUseCase
+  ) {}
 
   async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { name, email, password } = req.body;
 
-      const user = await this.registerUseCase.execute(name, email, password);
+      const result = await this.registerUseCase.execute(name, email, password);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async verifyRegistration(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email, otp } = req.body;
+      const user = await this.verifyRegistrationUseCase.execute(email, otp);
       res.status(201).json(user);
     } catch (error) {
       next(error);

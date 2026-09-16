@@ -46,19 +46,16 @@ export class AuthApi {
   }
 
   static async forgotPassword(email: string): Promise<{ message: string }> {
-    // Note: Backend might not be implemented yet.
     const response = await apiClient.post(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, { email });
     return response.data;
   }
 
   static async resetPassword(payload: ResetPasswordPayload): Promise<{ message: string }> {
-    // Note: Backend might not be implemented yet.
     const response = await apiClient.post(API_ENDPOINTS.AUTH.RESET_PASSWORD, payload);
     return response.data;
   }
 
   static async verifyRegistration(payload: VerifyRegistrationPayload): Promise<{ message: string }> {
-    // Note: Backend might not be implemented yet.
     const response = await apiClient.post(API_ENDPOINTS.AUTH.VERIFY_REGISTRATION, payload);
     return response.data;
   }

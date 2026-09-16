@@ -44,7 +44,6 @@ function Register() {
     verificationPromise.then(() => {
       setTimeout(() => navigate("/verify-registration", { state: { email: data.email } }), 1200);
     }).catch(() => {
-      // Catch prevents unhandled promise rejection error in console
     });
   };
 

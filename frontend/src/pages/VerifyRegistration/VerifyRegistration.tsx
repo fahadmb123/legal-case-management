@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
-import "../Login/Login.css"; // Reuse auth layout styles
+import "../Login/Login.css";
 import { verifyRegistrationSchema, type VerifyRegistrationFormData } from "../../validations/auth";
 import { AuthService } from "../../services/auth.service";
 import { useForm } from "react-hook-form";
@@ -11,7 +11,6 @@ function VerifyRegistration() {
     const navigate = useNavigate();
     const location = useLocation();
     
-    // We expect the email to be passed via state from Register
     const email = location.state?.email || "your registered email";
     
     const {
@@ -92,7 +91,6 @@ function VerifyRegistration() {
                         </div>
 
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            {/* OTP Field */}
                             <div className="form-group">
                                 <label className="form-label" htmlFor="verify-otp">
                                     6-Digit Verification Code
