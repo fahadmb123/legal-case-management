@@ -7,8 +7,11 @@ import { AuthService } from "../../services/auth.service";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useAuth } from "../../context/AuthContext";
+
 function Login() {
     const navigate = useNavigate()
+    const { login } = useAuth();
     const {
         register,
         handleSubmit,
@@ -27,7 +30,8 @@ function Login() {
             error: (err) => err.message || 'Authentication failed.',
         });
 
-        authPromise.then(() => {
+        authPromise.then((res) => {
+            login(res.user);
             setTimeout(() => navigate("/"), 1200);
         }).catch(() => {});
     };

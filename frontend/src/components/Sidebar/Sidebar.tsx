@@ -1,5 +1,7 @@
 import "./Sidebar.css";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { AuthService } from "../../services/auth.service";
 
 interface SidebarProps {
     isOpen?: boolean;
@@ -7,6 +9,9 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen = false, onClose }: SidebarProps) {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
     const handleNavClick = () => {
         if (onClose) {
             onClose();
@@ -86,19 +91,32 @@ function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 
             <div className="sidebar-footer">
                 <div className="advocate-profile-card">
-                    <div className="advocate-avatar">RK</div>
+                    <div className="advocate-avatar">{user?.name ? user.name.substring(0, 2).toUpperCase() : 'RK'}</div>
                     <div className="advocate-info">
-                        <div className="advocate-name">Adv. Rajesh Sharma</div>
-                        <div className="advocate-role">Chamber #412, High Court</div>
+                        <div className="advocate-name">{user?.name || 'Adv. Rajesh Sharma'}</div>
+                        <div className="advocate-role">{user?.email || 'Chamber #412, High Court'}</div>
                     </div>
                 </div>
                 <div className="sidebar-footer-actions">
                     <Link to="/settings" onClick={handleNavClick} className="sidebar-footer-btn">
                         Settings
                     </Link>
-                    <Link to="/login" onClick={handleNavClick} className="sidebar-footer-btn btn-logout">
+                    <button 
+                        onClick={async () => {
+                            try {
+                                await AuthService.logout();
+                            } catch (e) {
+                                console.error(e);
+                            }
+                            logout();
+                            handleNavClick();
+                            navigate('/login');
+                        }} 
+                        className="sidebar-footer-btn btn-logout"
+                        style={{ border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit' }}
+                    >
                         Logout
-                    </Link>
+                    </button>
                 </div>
             </div>
         </aside>
