@@ -3,10 +3,7 @@ import type { IRegisterUseCase } from "../../domain/use-cases/IRegisterUseCase";
 import type { ILoginUseCase } from "../../domain/use-cases/ILoginUseCase";
 
 export class AuthController {
-  constructor(
-    private readonly registerUseCase: IRegisterUseCase,
-    private readonly loginUseCase: ILoginUseCase
-  ) {}
+  constructor(private readonly registerUseCase: IRegisterUseCase,private readonly loginUseCase: ILoginUseCase) {}
 
   async register(req: Request, res: Response): Promise<void> {
     try {
