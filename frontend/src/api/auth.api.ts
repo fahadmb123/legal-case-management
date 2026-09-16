@@ -21,6 +21,7 @@ export interface LoginPayload {
 }
 
 export interface ResetPasswordPayload {
+  email: string;
   otp: string;
   password: string;
 }

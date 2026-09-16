@@ -32,6 +32,10 @@ export class PrismaUserRepository implements IUserRepository {
         return this.toDomain(createdUser)
     }
 
+    async updatePassword(id: string, passwordHash: string): Promise<void> {
+        await db.orm.public.User.where({ id }).update({ passwordHash });
+    }
+
     private toDomain(user: {
             id: string;
             name: string;

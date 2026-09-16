@@ -21,3 +21,17 @@ export const verifyRegistrationSchema = z.object({
     otp: z.string().length(6, "OTP must be 6 digits"),
   }),
 });
+
+export const forgotPasswordSchema = z.object({
+  body: z.object({
+    email: z.string().email("Not a valid email"),
+  }),
+});
+
+export const resetPasswordSchema = z.object({
+  body: z.object({
+    email: z.string().email("Not a valid email"),
+    otp: z.string().length(6, "OTP must be 6 digits"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+  }),
+});

@@ -39,7 +39,11 @@ function ResetPassword() {
     };
 
     const onSubmit = async (data: ResetPasswordFormData) => {
-        const authPromise = AuthService.resetPassword(data);
+        const payload = {
+            ...data,
+            email: email === "your registered email" ? "" : email,
+        };
+        const authPromise = AuthService.resetPassword(payload);
         
         toast.promise(authPromise, {
             loading: 'Verifying OTP and securing new credentials...',

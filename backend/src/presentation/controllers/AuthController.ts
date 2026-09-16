@@ -2,12 +2,16 @@ import type { Request, Response, NextFunction } from "express";
 import type { IRegisterUseCase } from "../../domain/use-cases/IRegisterUseCase";
 import type { ILoginUseCase } from "../../domain/use-cases/ILoginUseCase";
 import type { VerifyRegistrationUseCase } from "../../application/use-cases/auth/VerifyRegistrationUseCase";
+import type { ForgotPasswordUseCase } from "../../application/use-cases/auth/ForgotPasswordUseCase";
+import type { ResetPasswordUseCase } from "../../application/use-cases/auth/ResetPasswordUseCase";
 
 export class AuthController {
   constructor(
     private readonly registerUseCase: IRegisterUseCase,
     private readonly loginUseCase: ILoginUseCase,
-    private readonly verifyRegistrationUseCase: VerifyRegistrationUseCase
+    private readonly verifyRegistrationUseCase: VerifyRegistrationUseCase,
+    private readonly forgotPasswordUseCase: ForgotPasswordUseCase,
+    private readonly resetPasswordUseCase: ResetPasswordUseCase
   ) {}
 
   async register(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -58,6 +62,26 @@ export class AuthController {
         sameSite: "strict",
       });
       res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email } = req.body;
+      await this.forgotPasswordUseCase.execute(email);
+      res.status(200).json({ message: "Recovery email sent" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email, otp, password } = req.body;
+      await this.resetPasswordUseCase.execute(email, otp, password);
+      res.status(200).json({ message: "Password reset successful" });
     } catch (error) {
       next(error);
     }

@@ -31,8 +31,9 @@ export class AuthService {
     return await AuthApi.forgotPassword(data.email);
   }
 
-  static async resetPassword(data: ResetPasswordFormData): Promise<{ message: string }> {
+  static async resetPassword(data: ResetPasswordFormData & { email: string }): Promise<{ message: string }> {
     return await AuthApi.resetPassword({
+      email: data.email,
       otp: data.otp,
       password: data.password,
     });
