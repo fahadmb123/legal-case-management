@@ -2,14 +2,13 @@ import { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, type RegisterSchema } from "../../validations/auth";
+import { registerSchema, passwordRules, type RegisterSchema } from "../../validations/auth";
 import ThemeToggle from "../../components/ui/ThemeToggle/ThemeToggle";
 import "./Register.css";
 
 function Register() {
   const navigate = useNavigate();
 
-  // Form Setup
   const {
     register,
     handleSubmit,
@@ -30,17 +29,15 @@ function Register() {
 
   const passwordValue = watch("password");
 
-  // Toast
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Password strength calculation
   const passwordStrength = useMemo(() => {
     if (!passwordValue) return 0;
     let score = 0;
-    if (passwordValue.length >= 8) score += 1;
-    if (/[A-Z]/.test(passwordValue)) score += 1;
-    if (/[0-9]/.test(passwordValue)) score += 1;
-    if (/[^A-Za-z0-9]/.test(passwordValue)) score += 1;
+    if (passwordRules.length.safeParse(passwordValue).success) score += 1;
+    if (passwordRules.uppercase.safeParse(passwordValue).success) score += 1;
+    if (passwordRules.number.safeParse(passwordValue).success) score += 1;
+    if (passwordRules.special.safeParse(passwordValue).success) score += 1;
     return score;
   }, [passwordValue]);
 
@@ -53,7 +50,6 @@ function Register() {
 
   return (
     <div className="register-layout">
-      {/* Toast Notification */}
       {toastMessage && (
         <div className="register-toast" role="alert">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -64,7 +60,6 @@ function Register() {
       )}
 
       <div className="register-grid">
-        {/* Left Column: Legal Practice Credentials */}
         <aside className="register-brand-side">
           <div className="register-brand-header">
             <div className="brand-icon-wrapper">
@@ -110,9 +105,7 @@ function Register() {
           </div>
         </aside>
 
-        {/* Right Column: Registration Form */}
         <main className="register-form-side">
-          {/* Floating Theme Switcher */}
           <div className="register-theme-toggle">
             <ThemeToggle />
           </div>
@@ -126,7 +119,6 @@ function Register() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)}>
-              {/* Full Name */}
               <div className="form-group">
                 <label htmlFor="advocate-name" className="form-label">
                   Advocate Full Name
@@ -150,7 +142,6 @@ function Register() {
                 {errors.fullname && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px" }}>{errors.fullname.message}</span>}
               </div>
 
-              {/* Email & Phone in 2 Columns */}
               <div className="form-row-2col">
                 <div className="form-group">
                   <label htmlFor="advocate-email" className="form-label">
@@ -183,7 +174,6 @@ function Register() {
                 </div>
               </div>
 
-              {/* Bar Registration Number */}
               <div className="form-group">
                 <label htmlFor="bar-reg" className="form-label">
                   Bar Council Registration Number
@@ -211,7 +201,6 @@ function Register() {
                 )}
               </div>
 
-              {/* Passwords in 2 Columns */}
               <div className="form-row-2col">
                 <div className="form-group">
                   <label htmlFor="reg-password" className="form-label">
@@ -262,7 +251,6 @@ function Register() {
                 </div>
               </div>
 
-              {/* Terms and conditions */}
               <div className="form-group" style={{ marginTop: "var(--space-2)" }}>
                 <label className="form-check" style={{ alignItems: "flex-start", cursor: "pointer" }}>
                   <input
@@ -280,7 +268,6 @@ function Register() {
                 {errors.agreedToTerms && <span className="form-hint text-danger" style={{ fontSize: "var(--font-size-2xs)", marginTop: "4px", display: "block" }}>{errors.agreedToTerms.message}</span>}
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 className="btn btn-primary btn-lg"
