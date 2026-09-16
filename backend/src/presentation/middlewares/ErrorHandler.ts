@@ -11,6 +11,7 @@ export const errorHandler = (
     res.status(err.statusCode).json({
       status: "error",
       message: err.message,
+      stack: err.stack,
     });
     return;
   }
@@ -18,6 +19,7 @@ export const errorHandler = (
   console.error("Unexpected error:", err);
   res.status(500).json({
     status: "error",
-    message: "Internal Server Error",
+    message: err.message,
+    stack: err.stack,
   });
 };

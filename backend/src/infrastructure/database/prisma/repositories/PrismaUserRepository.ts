@@ -3,6 +3,9 @@ import type { User } from "../../../../domain/entities/User";
 import type { IUserRepository } from "../../../../domain/repositories/IUserRepository";
 import { db } from "../../../../prisma/db";
 
+// Prisma ORM requires Temporal to be globally available in environments without native support
+(globalThis as any).Temporal = Temporal;
+
 export class PrismaUserRepository implements IUserRepository {
     async findByEmail(email: string): Promise<User | null> {
         const user = await db.orm.public.User.first({email,})
